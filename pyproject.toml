@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tsar-governance"
+version = "1.2.0"
+description = "TSAR AI Agent Governance Framework and unified security CLI"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0.0",
+    "cryptography>=42.0.0",
+]
+
+[project.scripts]
+tsar = "tsar:main"
+tsar-claude-hook = "claude_code_hook:main"
+
+[tool.setuptools]
+package-dir = {"" = "tools/tsar-cli"}
+py-modules = [
+    "tsar",
+    "sarif",
+    "verify_upstream",
+    "lifecycle_engine",
+    "lifecycle_orchestrator",
+    "lifecycle_evidence",
+    "claude_code_hook",
+]
