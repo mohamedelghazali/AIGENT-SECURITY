@@ -8,6 +8,8 @@ Built for security-conscious engineering teams, TSAR brings security policy clos
 
 **Security-first AI development. Governed at the source.**
 
+**Quick Install & Unified Bundle:** Install the TSAR CLI via `pipx install tsar-governance` or `pip install tsar-governance`, or load the single-file unified rule bundle from [llms-full.txt](llms-full.txt).
+
 ## The Problem TSAR Addresses
 
 AI coding agents can generate code quickly, but their output is not automatically aligned with an organization's security requirements. Security guidance may be scattered across team documents, prompt files, code-review checklists, and CI configuration. This creates several practical gaps:
