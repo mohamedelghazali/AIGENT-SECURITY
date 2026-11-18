@@ -6,6 +6,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Added
+- Agent bundle generator (`scripts/build_agent_bundle.py`), `llms-full.txt` bundle output, and `pyproject.toml` packaging support (PR #109).
+- Conformance runner (`tools/tsar-conformance/runner.py`) with passing behavioral conformance tests `AC-01` through `AC-04` (PR #110).
+
 ## [1.2.0] — Unreleased
 
 ### Added
