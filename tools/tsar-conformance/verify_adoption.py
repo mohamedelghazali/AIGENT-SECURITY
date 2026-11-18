@@ -462,7 +462,7 @@ def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool, str]:
                or expected_proc.stdout
                or f"exit code {expected_proc.returncode}"
             ).strip()
-            return True, False, f"consultation_verifier.py failed: {err[:200]}"
+            rturn True, False, f"consultation_verifier.py failed: {err[:200]}"
         expected_digests = json.loads(expected_proc.stdout)
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".json", encoding="utf-8", delete=True
