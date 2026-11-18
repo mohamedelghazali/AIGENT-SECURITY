@@ -173,6 +173,11 @@ Output a concise, non-repetitive summary of actual observed actions rather than 
 - `unavailable` — capability exists in principle but is blocked/missing here
 - `unexecuted` — available or defined, but not run in this session
 
+Final Adoption Response (3-State Rule):
+- State A (`SUCCESS`): When the repository is accessible, no mandatory files are missing, all mandatory checks are executed and pass, and no non-blocking issues or unexecuted/unavailable optional checks remain, return ONLY: `✅ Adoption successful. Let's start working on your project.` (1 line, no additional text).
+- State B (`FAILED`): When the repository is inaccessible, any mandatory file is missing, mandatory checks are empty, or any mandatory check fails or is unexecuted, return `❌ Adoption failed.` followed by concise failure details (mandatory failures never downgrade to warnings).
+- State C (`SUCCESS_WITH_WARNINGS`): When all mandatory checks pass but non-blocking issues or unexecuted/unavailable optional checks remain, return `⚠️ Adoption successful, but some issues require attention.` followed by concise non-blocking issue details (with impact), completed mandatory checks, and unexecuted/unavailable optional checks.
+
 **End of Protocol.**
 ```
 
