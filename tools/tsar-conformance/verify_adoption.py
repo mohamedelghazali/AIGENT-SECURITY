@@ -332,8 +332,8 @@ def main() -> int:
         json.dumps(
             {
                 "outcome": response.outcome.value,
-                "header": response.header,
-                "rendered": response.rendered,
+                "header": response.lines[0] if response.lines else "",
+                "rendered": response.message,
             },
             indent=2,
         )
