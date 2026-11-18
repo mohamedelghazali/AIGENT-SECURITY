@@ -244,7 +244,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         mandatory_checks=mandatory_checks,
         optional_checks=optional_checks,
         non_blocking_issues=non_blocking_issues,
-        skipped_mandatory_checks=skipped_mandatory,
+        
     )
     return classify_and_format_adoption(evaluation)
 
