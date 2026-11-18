@@ -7,9 +7,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_license_reserves_commercial_use_and_preserves_prior_grants():
     license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
      assert "MIT License" in license_text
-    assert "Copyright (c) 2026 Mohamed El Ghazali" in license_text
-    assert "Permission is hereby granted, free of charge" in license_text
-    assert "Telephone: +213 541436814" in license_text
+     assert "Copyright (c) 2026 Mohamed El Ghazali" in license_text
+     assert "Permission is hereby granted, free of charge" in license_text
+     assert "Telephone: +213 541436814" in license_text
 
 
 
