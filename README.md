@@ -372,7 +372,7 @@ TSAR therefore reduces risk and improves consistency; it does not guarantee vuln
 
 ## License
 
-TSAR uses a custom source-available license. Defined non-commercial uses are permitted; commercial use requires prior written authorization and a separate commercial license. This is not an OSI-approved Open Source license. See [LICENSE](LICENSE) for the full terms and the treatment of previously distributed MIT versions.
+TSAR is licensed under the **MIT License**, an OSI-approved Open Source license. See [LICENSE](LICENSE) for the full terms and copyright holder details.
 
 ## Security
 
