@@ -93,8 +93,10 @@ class AdoptionRunInput:
     allow_advisory_fallback: bool = False
     runner_executed: bool = False
     runner_passed: bool = False
+    runner_error: str = ""
     consultation_verifier_executed: bool = False
     consultation_verifier_passed: bool = False
+    consultation_verifier_error: str = ""
     non_blocking_issues: list[str] = field(default_factory=list)
     skipped_mandatory_checks: list[str] = field(default_factory=list)
 
@@ -319,7 +321,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                     name="conformance_runner",
                     executed=True,
                     passed=run_input.runner_passed,
-                    details="" if run_input.runner_passed else "runner.py failed.",
+                    details="" if run_input.runner_passed else (run_input.runner_error.strip() or "runner.py failed."),
                 )
             )
 
@@ -344,7 +346,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                     details=(
                         ""
                         if run_input.consultation_verifier_passed
-                        else "consultation_verifier.py failed."
+                        else (run_input.consultation_verifier_error.strip() or "consultation_verifier.py failed.")
                     ),
                 )
             )
@@ -414,28 +416,32 @@ def _parse_manifest_security_posture(manifest_text: str) -> tuple[bool, str, boo
     return fail_closed, default_mode, allow_advisory_fallback
 
 
-def _execute_local_runner(root: Path) -> tuple[bool, bool]:
+def _execute_local_runner(root: Path) -> tuple[bool, bool, str]:
     runner_path = root / "tools/tsar-conformance/runner.py"
     if not runner_path.is_file():
-        return False, False
+        return False, False, ""
     try:
         proc = subprocess.run(
-            [sys.executable, str(runner_path), "--rounds", "1", "--json"],
+            [sys.executable, str(runner_path), "--json"],
             cwd=root,
             capture_output=True,
             text=True,
             timeout=60,
             check=False,
         )
-        return True, proc.returncode == 0
-    except (OSError, subprocess.SubprocessError):
-        return True, False
+        if proc.returncode == 0:
+            return True, True, ""
+        detail = (proc.stderr or proc.stdout or "").strip()
+        err = f"runner.py failed (exit {proc.returncode}): {detail}" if detail else f"runner.py failed (exit {proc.returncode})"
+        return True, False, err
+    except (OSError, subprocess.SubprocessError) as exc:
+        return True, False, f"runner.py failed: {exc}"
 
 
-def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool]:
+def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool, str]:
     verifier_path = root / "tools/tsar-conformance/consultation_verifier.py"
     if not verifier_path.is_file():
-        return False, False
+        return False, False, ""
     try:
         expected_proc = subprocess.run(
             [
@@ -452,7 +458,9 @@ def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool]:
             check=False,
         )
         if expected_proc.returncode != 0:
-            return True, False
+           detail = (expected_proc.stderr or expected_proc.stdout or "").strip()
+            err = f"consultation_verifier.py failed (exit {expected_proc.returncode}): {detail}" if detail else f"consultation_verifier.py failed (exit {expected_proc.returncode})"
+            return True, False, err
         expected_digests = json.loads(expected_proc.stdout)
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".json", encoding="utf-8", delete=True
@@ -474,10 +482,13 @@ def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool]:
                 timeout=60,
                 check=False,
             )
-        return True, verify_proc.returncode == 0
-    except (OSError, ValueError, subprocess.SubprocessError):
-        return True, False
-
+        if verify_proc.returncode == 0:
+            return True, True, ""
+        detail = (verify_proc.stderr or verify_proc.stdout or "").strip()
+        err = f"consultation_verifier.py failed (exit {verify_proc.returncode}): {detail}" if detail else f"consultation_verifier.py failed (exit {verify_proc.returncode})"
+        return True, False, err
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        return True, False, f"consultation_verifier.py failed: {exc}"
 
 def verify_local_repository_checkout(
     repo_root: Path | str | None = None,
@@ -519,8 +530,8 @@ def verify_local_repository_checkout(
     else:
         fail_closed, default_mode, allow_advisory_fallback = False, "", True
 
-    runner_executed, runner_passed = _execute_local_runner(root)
-    verifier_executed, verifier_passed = _execute_local_consultation_verifier(
+    runner_executed, runner_passed, runner_error = _execute_local_runner(root)
+    verifier_executed, verifier_passed, verifier_error= _execute_local_consultation_verifier(
         root
     )
 
@@ -539,8 +550,10 @@ def verify_local_repository_checkout(
             allow_advisory_fallback=allow_advisory_fallback,
             runner_executed=runner_executed,
             runner_passed=runner_passed,
+           runner_error=runner_error,
             consultation_verifier_executed=verifier_executed,
             consultation_verifier_passed=verifier_passed,
+            consultation_verifier_error=verifier_error,
         )
     )
 
