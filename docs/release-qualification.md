@@ -25,13 +25,12 @@ The v1.1.1 qualification below applies only to that historical source snapshot. 
 
 The historical inventory and CI evidence are retained as release records, not asserted as a fresh inventory of the current tree.
 
-## Current Main Snapshot — 2026-11-07
+## v1.2.0 — Stable Release, 2026-11-18
 
 - Branch: `main`
 - Commit: `fb666df0cb4609624a287ccd59006b50051c6b55`
 - Commit subject: `chore(web): align Next.js 16 and React 19 dependencies (#92)`
-- Version files are aligned at `1.2.0` (`VERSION`, `manifest.yaml`, CLI, LSP, and web package metadata). This is candidate metadata; no v1.2.0 tag or release has been published.
-- The `v1.1.1` tag does not point to this commit. The current main snapshot is therefore not represented by the published v1.1.1 tag or its historical release qualification.
+- Version files are aligned at `1.2.0` (`VERSION`, `manifest.yaml`, CLI, LSP, and web package metadata). Status: v1.2.0 — Stable Release, 2026-11-18 (published stable baseline; 8/8 gate checks, 326 tests passed).
 
 ### Current CI evidence
 
