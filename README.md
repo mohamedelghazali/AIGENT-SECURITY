@@ -146,8 +146,9 @@ Adopt TSAR (https://github.com/mohamedelghazali/TSAR) as my provider-neutral sec
 - Canonical enforcement levels: `Strict`, `Warn`, `Advisory`. Because `allow_advisory_fallback: false`, `Strict` mode must fail closed on blocking findings rather than silently degrading to `Advisory`.
 
 ## 3. REAL-FILE CONSULTATION & VERIFICATION
-- Primary bundle: `llms-full.txt` at the repository root and/or direct repository files (`AGENTS.md`, `manifest.yaml`, `VERSION`, `docs/universal-agent-onboarding.md`, `docs/release-qualification.md`, and the 4 `system/` directives).
+- Primary bundle: `llms-full.txt` at the repository root and/or direct repository files (`AGENTS.md`, `manifest.yaml`, `VERSION`, `docs/universal-agent-onboarding.md`, `docs/release-qualification.md`, and the 4 `system/` directives). Specifically: `system/CORE_DIRECTIVE.md`, `system/DO_NOT_GENERATE.md`, `system/ENFORCEMENT_LEVELS.md`, and `system/LIFECYCLE.md`. If raw file hosts (`raw.githubusercontent.com`) are blocked, fetch `llms-full.txt` via the GitHub REST API contents endpoint (`/repos/mohamedelghazali/TSAR/contents/llms-full.txt`).
 - When local shell/Python access is available, verify consultation and conformance using `tools/tsar-conformance/consultation_verifier.py` and `tools/tsar-conformance/runner.py`.
+- Runtime-capability classification rule: local conformance scripts (`tools/tsar-conformance/verify_adoption.py`, `consultation_verifier.py`, `runner.py`, `adoption_response.py`, and `tools/tsar-cli/verify_upstream.py`) are mandatory ONLY when both a local checkout and a Python runtime exist; otherwise classify them as `unavailable`/`optional` -> State C (`⚠️`), never false `❌` and never false `✅`.
 - Only report files actually read and checks actually executed.
 
 ## 4. 4-WAY SCOPE SEPARATION & OFFICIAL SKILLS
@@ -174,6 +175,7 @@ Output a concise, non-repetitive summary of actual observed actions rather than 
 - `unexecuted` — available or defined, but not run in this session
 
 Final Adoption Response (3-State Rule):
+- Strict line-1 header-first rule: Line 1 of the response MUST begin with the exact canonical State A (`✅`), State B (`❌`), or State C (`⚠️`) header before any preamble or details.
 - State A (`SUCCESS`): When the repository is accessible, no mandatory files are missing, all mandatory checks are executed and pass, and no non-blocking issues or unexecuted/unavailable optional checks remain, return ONLY: `✅ Adoption successful. Let's start working on your project.` (1 line, no additional text).
 - State B (`FAILED`): When the repository is inaccessible, any mandatory file is missing, mandatory checks are empty, or any mandatory check fails or is unexecuted, return `❌ Adoption failed.` followed by concise failure details (mandatory failures never downgrade to warnings).
 - State C (`SUCCESS_WITH_WARNINGS`): When all mandatory checks pass but non-blocking issues or unexecuted/unavailable optional checks remain, return `⚠️ Adoption successful, but some issues require attention.` followed by concise non-blocking issue details (with impact), completed mandatory checks, and unexecuted/unavailable optional checks.
