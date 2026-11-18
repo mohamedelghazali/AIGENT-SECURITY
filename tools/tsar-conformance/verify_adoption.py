@@ -91,7 +91,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
     mandatory_checks: list[MandatoryCheck] = []
     optional_checks: list[OptionalCheck] = []
     non_blocking_issues: list[NonBlockingIssue] = [
-        NonBlockingIssue(description=issue)
+        NonBlockingIssue(summary=issue)
         for issue in run_input.non_blocking_issues
     ]
     skipped_mandatory = list(run_input.skipped_mandatory_checks)
@@ -100,7 +100,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         MandatoryCheck(
             name="repository_accessible",
             passed=run_input.repository_accessible,
-            detail=(
+            details=(
                 ""
                 if run_input.repository_accessible
                 else "TSAR repository is inaccessible."
@@ -117,7 +117,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         MandatoryCheck(
             name="security_posture",
             passed=security_ok,
-            detail=(
+            details=(
                 ""
                 if security_ok
                 else (
@@ -135,7 +135,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
             MandatoryCheck(
                 name=f"core_file:{rel_path}",
                 passed=present,
-                detail="" if present else f"Missing core file: {rel_path}",
+                details="" if present else f"Missing core file: {rel_path}",
             )
         )
 
@@ -158,7 +158,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
             )
         non_blocking_issues.append(
             NonBlockingIssue(
-                description=(
+                summary=(
                     "Directory crawling or raw file host blocked; verified "
                     "system/*.md directives via llms-full.txt fallback."
                 )
@@ -171,7 +171,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                 MandatoryCheck(
                     name=f"core_file:{path}",
                     passed=present,
-                    detail="" if present else f"Missing directive: {path}",
+                    details="" if present else f"Missing directive: {path}",
                 )
             )
 
@@ -182,7 +182,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                 MandatoryCheck(
                     name="conformance_runner",
                     passed=False,
-                    detail="runner.py was skipped in local Python checkout.",
+                    details="runner.py was skipped in local Python checkout.",
                 )
             )
         else:
@@ -190,7 +190,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                 MandatoryCheck(
                     name="conformance_runner",
                     passed=run_input.runner_passed,
-                    detail="" if run_input.runner_passed else "runner.py failed.",
+                    details="" if run_input.runner_passed else "runner.py failed.",
                 )
             )
 
@@ -202,7 +202,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                 MandatoryCheck(
                     name="consultation_verifier",
                     passed=False,
-                    detail=(
+                    details=(
                         "consultation_verifier.py was skipped in local "
                         "Python checkout."
                     ),
@@ -213,7 +213,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                 MandatoryCheck(
                     name="consultation_verifier",
                     passed=run_input.consultation_verifier_passed,
-                    detail=(
+                    details=(
                         ""
                         if run_input.consultation_verifier_passed
                         else "consultation_verifier.py failed."
@@ -225,7 +225,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
             OptionalCheck(
                 name="local_conformance_scripts",
                 passed=False,
-                detail=(
+                details=(
                     "Local conformance scripts skipped: no local checkout "
                     "and Python runtime."
                 ),
@@ -233,7 +233,7 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         )
         non_blocking_issues.append(
             NonBlockingIssue(
-                description=(
+                summary=(
                     "Web/offline runtime cannot execute local conformance "
                     "scripts (runner.py, consultation_verifier.py)."
                 )
