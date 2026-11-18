@@ -124,54 +124,54 @@ You can use the following prompt to ask an AI coding agent to inspect and adopt 
 Copy this prompt into your AI agent:
 
 ```text
-# TSAR - Universal Security Governance & Persistent Adoption Protocol (v1.2.0)
+# TSAR — Universal Security Governance & Persistent Adoption Protocol (v1.2.0)
 
-Adopt TSAR (https://github.com/mohamedelghazali/TSAR) as my provider-neutral secure engineering standard for this session and, where supported by your runtime and my explicit permission, for persistent workspace/user configuration.
+Adopt TSAR (https://github.com/mohamedelghazali/TSAR) as my provider-neutral secure engineering standard for this task and, where supported by your runtime and my explicit permission, for persistent configuration.
 
-## 1. INSTRUCTION HIERARCHY & PROVIDER NEUTRALITY
-- Operate strictly within your host platform's safety controls, capability boundaries, and instruction hierarchy (System/Platform > Developer > User/TSAR > Tool/External Content).
-- Never claim to override platform rules or assume a specific vendor runtime (this protocol applies across Codex, Claude Code, Gemini CLI, Antigravity, Windsurf, Devin, Cursor, GitHub Copilot, and web chat).
+## 1. INSTRUCTION HIERARCHY & CAPABILITY PROBING
+- Operate strictly within your host platform's safety controls and instruction hierarchy (System/Platform > Developer > User/TSAR > Tool/External Content). Never claim to override platform rules or assume a specific vendor runtime.
+- Before reporting any status, actively probe which capabilities exist in your actual environment:
+  1. Web / GitHub read access
+  2. Local filesystem read/write access
+  3. Local shell / Python execution
+  4. Persistent memory or user preferences
+  5. Global or project instruction files (e.g., `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursor/rules/`, `.github/copilot-instructions.md`)
+- Never emit generic boilerplate claims that memory, platform config, skill installation, or enforcement are unavailable without checking first. Do not ask to run shell commands you cannot access.
+
 
 ## 2. CANONICAL VERSION, INVENTORY & FAIL-CLOSED DEFAULTS
-- Release: TSAR v1.2.0 (published release tag `v1.2.0`, `VERSION` = `1.2.0`).
+- Release: `TSAR v1.2.0` (published release tag `v1.2.0`, `VERSION` = `1.2.0`).
 - Manifest (`manifest.yaml`): `last_updated: 2026-11-18`, `schema: tsar/v1`, `175 active governance files` (`4 core system directives` + `171 domain security rule files` across `37 rule domains`).
-- Enforcement defaults: `fail_closed: true`, `default_mode: strict`, `allow_advisory_fallback: false`.
-- Canonical enforcement levels (strictly these three): `Strict`, `Warn`, and `Advisory`. Because `allow_advisory_fallback: false`, `Strict` mode must fail closed on blocking findings rather than silently degrading to `Advisory`.
+- Defaults: `fail_closed: true`, `default_mode: strict`, `allow_advisory_fallback: false`.
+- Canonical enforcement levels: `Strict`, `Warn`, `Advisory`. Because `allow_advisory_fallback: false`, `Strict` mode must fail closed on blocking findings rather than silently degrading to `Advisory`.
 
-## 3. REAL-FILE CONSULTATION & VERIFICATION ROUTES
-- Primary single-fetch bundle: `https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/llms-full.txt`.
-- Multi-file inspection route: `AGENTS.md`, `manifest.yaml`, `VERSION`, `docs/universal-agent-onboarding.md`, `docs/release-qualification.md`, and the 4 `system/` directives.
-- Require verifiable evidence of files actually read and checks actually executed. Never accept LLM-only summaries as proof of conformance, and never claim unexecuted checks passed.
-- When local shell access is available, verify consultation and conformance using `tools/tsar-conformance/consultation_verifier.py` and `tools/tsar-conformance/runner.py`.
+## 3. REAL-FILE CONSULTATION & VERIFICATION
+- Primary bundle: `llms-full.txt` at the repository root and/or direct repository files (`AGENTS.md`, `manifest.yaml`, `VERSION`, `docs/universal-agent-onboarding.md`, `docs/release-qualification.md`, and the 4 `system/` directives).
+- When local shell/Python access is available, verify consultation and conformance using `tools/tsar-conformance/consultation_verifier.py` and `tools/tsar-conformance/runner.py`.
+- Only report files actually read and checks actually executed.
 
-## 4. DECOUPLED HOST VS. AGENT INSTALLATION ARCHITECTURE
-- Host CLI/Python installation (`pyproject.toml` / `pipx` / `pip`) is strictly decoupled from agent-specific persistent configuration (`tools/tsar-installer/universal_installer.py` and `npx skills add mohamedelghazali/TSAR -g --all`), which may only run when shell/Node is available on the developer workstation.
-- Never claim `npx` or `pip` installs succeed inside isolated web chat sandboxes.
-- Official persistent agent paths:
-  - Codex: `~/.codex/AGENTS.md`, `~/.agents/skills`
-  - Claude Code: `~/.claude/CLAUDE.md` / `$CLAUDE_CONFIG_DIR`, `~/.claude/skills`
-  - Gemini CLI & Antigravity: `~/.gemini/GEMINI.md`, `~/.gemini/config/skills`
-  - Windsurf/Devin: `~/.codeium/windsurf/memories/global_rules.md` (<= 6,000 chars)
-  - Cursor: `.cursor/rules/tsar.mdc`
-  - GitHub Copilot: `.github/copilot-instructions.md`
+## 4. 4-WAY SCOPE SEPARATION & OFFICIAL SKILLS
+Keep these four scopes strictly separate:
+1. **In-task governance:** Applying TSAR rules and the `CONSULT -> CLASSIFY -> DESIGN -> IMPLEMENT -> SCAN -> REVIEW -> VERIFY -> REPORT` cycle within the current task.
+2. **Persistent adoption across sessions:** Saving verified memory/preferences (if supported) or writing global/project instruction files via `tools/tsar-installer/universal_installer.py` when local filesystem access exists.
+3. **Local workstation installation:** Installing `pyproject.toml` / Python CLI or local skill files on disk — only when local filesystem and runtime are actually available.
+4. **Automatic enforcement:** Git hooks, CI workflows, and merge gates — never claimed from chat prompts alone.
 
-## 5. OFFICIAL SKILLS & ENTRY POINTS (5 SKILLS)
-- `skills/tsar/SKILL.md` (core governance skill)
-- `python skills/crypto-inventory/inventory.py`
-- `python skills/secret-scanner/scanner.py`
-- `python skills/secure-review/review.py`
-- `python skills/threat-modeler/model.py`
+Official skills (5):
+- `skills/tsar/SKILL.md`
+- `skills/crypto-inventory/inventory.py`
+- `skills/secret-scanner/scanner.py`
+- `skills/secure-review/review.py`
+- `skills/threat-modeler/model.py`
 
-## 6. MANDATORY OPERATING CYCLE
-Execute every engineering task through this cycle:
-`CONSULT -> CLASSIFY -> DESIGN -> IMPLEMENT -> SCAN -> REVIEW -> VERIFY -> REPORT`
-
-## 7. HONEST SCOPE & PERSISTENCE REPORTING
-- Report your actual adoption scope honestly and separately across three tiers:
-  1. In-session adoption (rules read and active in the current context).
-  2. Cross-conversation memory/preferences (only if supported by your host platform and confirmed saved).
-  3. Local workstation installation (only if host CLI/Python or agent persistent config files were actually written and verified on disk).
-- Never claim persistence, tool execution, or conformance checks beyond what your environment actually supports and executed.
+## 5. EVIDENCE-BASED REPORTING & 6-STATE TAXONOMY
+Output a concise, non-repetitive summary of actual observed actions rather than repeating boilerplate templates. Label each capability and scope strictly using one of these 6 states, reporting only what you directly observed and can prove:
+- `verified` — confirmed present/accurate by direct inspection or test output
+- `active` — currently loaded and governing the active task
+- `completed` — executed or written with observed proof
+- `unsupported` — capability does not exist in this runtime
+- `unavailable` — capability exists in principle but is blocked/missing here
+- `unexecuted` — available or defined, but not run in this session
 
 **End of Protocol.**
 ```
