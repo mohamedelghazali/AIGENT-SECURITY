@@ -10,12 +10,12 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Agent bundle generator (`scripts/build_agent_bundle.py`), `llms-full.txt` bundle output, and `pyproject.toml` packaging support (PR #109).
 - Conformance runner (`tools/tsar-conformance/runner.py`) with passing behavioral conformance tests `AC-01` through `AC-04` (PR #110).
 
-## [1.2.0] — Unreleased
+## [1.2.0] — Stable Release, 2026-11-18
 
 ### Added
 - AWS Lambda external audit-anchor service with S3 Object Lock COMPLIANCE retention, DynamoDB transactional sequencing/idempotency, and AWS KMS Ed25519 receipts.
 - GitHub Actions OIDC deployment workflow with durable Terraform state and authenticated live qualification.
-- Release qualification records separating historical v1.1.1 evidence from the 1.2.0 candidate.
+- Release qualification records separating historical v1.1.1 evidence from the 1.2.0 stable release (2026-11-18).
 
 ### Changed
 - Updated TSAR component version metadata to 1.2.0 for the next stable release.
