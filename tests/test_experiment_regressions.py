@@ -197,7 +197,7 @@ class ExperimentRegressionTests(unittest.TestCase):
 
     def test_09_real_local_disk_checkout_verification(self) -> None:
         result = verify_local_repository_checkout(REPO_ROOT)
-        self.assertEqual(result.outcome, AdoptionOutcome.SUCCESS)
+        self.assertEqual(result.outcome, AdoptionOutcome.SUCCESS, msg=result.message)
         self.assertEqual(
             result.message,
             "✅ Adoption successful. Let's start working on your project.",
@@ -329,8 +329,8 @@ class ExperimentRegressionTests(unittest.TestCase):
             result = verify_local_repository_checkout(root)
             self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
             self.assertEqual(result.message.splitlines()[0], "❌ Adoption failed.")
-            self.assertIn("runner.py failed.", result.message)
-            self.assertIn("consultation_verifier.py failed.", result.message)
+            self.assertIn("runner.py failed", result.message)
+            self.assertIn("consultation_verifier.py failed", result.message)
 
     def test_18_adversarial_ten_model_simulation_matrix(self) -> None:
         """Controlled 10-model fixture matrix matching all 10 evaluated models and line-1 header ordering."""
