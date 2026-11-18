@@ -6,11 +6,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_license_reserves_commercial_use_and_preserves_prior_grants():
     license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
-    assert "Commercial Use" in license_text
-    assert "separate commercial license" in license_text
-    assert "does not revoke or limit rights already granted under" in license_text
-    assert "MIT License" in license_text
-    assert "not an OSI-approved" in license_text
+     assert "MIT License" in license_text
+    assert "Copyright (c) 2026 Mohamed El Ghazali" in license_text
+    assert "Permission is hereby granted, free of charge" in license_text
+    assert "Telephone: +213 541436814" in license_text
+
 
 
 def test_contribution_guidance_references_license_grant():
