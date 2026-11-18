@@ -419,7 +419,7 @@ def _parse_manifest_security_posture(manifest_text: str) -> tuple[bool, str, boo
 def _execute_local_runner(root: Path) -> tuple[bool, bool, str]:
     runner_path = root / "tools/tsar-conformance/runner.py"
     if not runner_path.is_file():
-        return False, False, ""
+        return False, False, "runner.py missing."
     try:
         proc = subprocess.run(
             [sys.executable, str(runner_path), "--json"],
@@ -431,9 +431,8 @@ def _execute_local_runner(root: Path) -> tuple[bool, bool, str]:
         )
         if proc.returncode == 0:
             return True, True, ""
-        detail = (proc.stderr or proc.stdout or "").strip()
-        err = f"runner.py failed (exit {proc.returncode}): {detail}" if detail else f"runner.py failed (exit {proc.returncode})"
-        return True, False, err
+        err = (proc.stderr or proc.stdout or f"exit code {proc.returncode}").strip()
+        return True, False, f"runner.py failed: {err[:200]}"
     except (OSError, subprocess.SubprocessError) as exc:
         return True, False, f"runner.py failed: {exc}"
 
@@ -441,7 +440,7 @@ def _execute_local_runner(root: Path) -> tuple[bool, bool, str]:
 def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool, str]:
     verifier_path = root / "tools/tsar-conformance/consultation_verifier.py"
     if not verifier_path.is_file():
-        return False, False, ""
+        return False, False, "consultation_verifier.py missing."
     try:
         expected_proc = subprocess.run(
             [
@@ -458,9 +457,12 @@ def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool, str]:
             check=False,
         )
         if expected_proc.returncode != 0:
-           detail = (expected_proc.stderr or expected_proc.stdout or "").strip()
-            err = f"consultation_verifier.py failed (exit {expected_proc.returncode}): {detail}" if detail else f"consultation_verifier.py failed (exit {expected_proc.returncode})"
-            return True, False, err
+           err = (
+               expected_proc.stderr
+               or expected_proc.stdout
+               or f"exit code {expected_proc.returncode}"
+            ).strip()
+            return True, False, f"consultation_verifier.py failed: {err[:200]}"
         expected_digests = json.loads(expected_proc.stdout)
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".json", encoding="utf-8", delete=True
@@ -484,9 +486,8 @@ def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool, str]:
             )
         if verify_proc.returncode == 0:
             return True, True, ""
-        detail = (verify_proc.stderr or verify_proc.stdout or "").strip()
-        err = f"consultation_verifier.py failed (exit {verify_proc.returncode}): {detail}" if detail else f"consultation_verifier.py failed (exit {verify_proc.returncode})"
-        return True, False, err
+        err = (verify_proc.stderr or verify_proc.stdout or f"exit code {verify_proc.returncode}").strip()
+        return True, False, f"consultation_verifier.py failed: {err[:200]}"
     except (OSError, ValueError, subprocess.SubprocessError) as exc:
         return True, False, f"consultation_verifier.py failed: {exc}"
 
