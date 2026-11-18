@@ -49,7 +49,7 @@ class ExperimentRegressionTests(unittest.TestCase):
         )
         self.assertEqual(result.outcome, AdoptionOutcome.SUCCESS)
         self.assertEqual(
-            result.rendered.splitlines()[0],
+            result.message.splitlines()[0],
             "✅ Adoption successful. Let's start working on your project.",
         )
 
@@ -65,9 +65,9 @@ class ExperimentRegressionTests(unittest.TestCase):
             )
         )
         self.assertNotEqual(result.outcome, AdoptionOutcome.SUCCESS)
-        self.assertEqual(result.outcome, AdoptionOutcome.WARNING)
+        self.assertEqual(result.outcome, AdoptionOutcome.SUCCESS_WITH_WARNINGS)
         self.assertEqual(
-            result.rendered.splitlines()[0],
+            result.message.splitlines()[0],
             "⚠️ Adoption successful, but some issues require attention.",
         )
 
@@ -85,9 +85,9 @@ class ExperimentRegressionTests(unittest.TestCase):
             )
         )
         self.assertNotEqual(result.outcome, AdoptionOutcome.FAILED)
-        self.assertEqual(result.outcome, AdoptionOutcome.WARNING)
+        self.assertEqual(result.outcome, AdoptionOutcome.SUCCESS_WITH_WARNINGS)
         self.assertEqual(
-            result.rendered.splitlines()[0],
+            result.message.splitlines()[0],
             "⚠️ Adoption successful, but some issues require attention.",
         )
 
@@ -107,7 +107,7 @@ class ExperimentRegressionTests(unittest.TestCase):
             )
         )
         self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
-        self.assertEqual(result.rendered.splitlines()[0], "❌ Adoption failed.")
+        self.assertEqual(result.message.splitlines()[0], "❌ Adoption failed.")
 
     def test_05_llms_full_fallback_recovery(self) -> None:
         without_system_dir = {
@@ -129,9 +129,9 @@ class ExperimentRegressionTests(unittest.TestCase):
                 llms_full_verified_directives=True,
             )
         )
-        self.assertEqual(result.outcome, AdoptionOutcome.WARNING)
+        self.assertEqual(result.outcome, AdoptionOutcome.SUCCESS_WITH_WARNINGS)
         self.assertEqual(
-            result.rendered.splitlines()[0],
+            result.message.splitlines()[0],
             "⚠️ Adoption successful, but some issues require attention.",
         )
 
@@ -147,7 +147,7 @@ class ExperimentRegressionTests(unittest.TestCase):
             )
         )
         self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
-        self.assertEqual(result.rendered.splitlines()[0], "❌ Adoption failed.")
+        self.assertEqual(result.message.splitlines()[0], "❌ Adoption failed.")
 
     def test_07_local_skipped_runner_fail_closed(self) -> None:
         result = evaluate_adoption_run(
@@ -164,7 +164,7 @@ class ExperimentRegressionTests(unittest.TestCase):
             )
         )
         self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
-        self.assertEqual(result.rendered.splitlines()[0], "❌ Adoption failed.")
+        self.assertEqual(result.message.splitlines()[0], "❌ Adoption failed.")
 
     def test_08_weakened_security_posture_rejected(self) -> None:
         for kwargs in (
@@ -188,13 +188,13 @@ class ExperimentRegressionTests(unittest.TestCase):
                 )
             )
             self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
-            self.assertEqual(result.rendered.splitlines()[0], "❌ Adoption failed.")
+            self.assertEqual(result.message.splitlines()[0], "❌ Adoption failed.")
 
     def test_09_real_local_disk_checkout_verification(self) -> None:
         result = verify_local_repository_checkout(REPO_ROOT)
         self.assertEqual(result.outcome, AdoptionOutcome.SUCCESS)
         self.assertEqual(
-            result.rendered.splitlines()[0],
+            result.message.splitlines()[0],
             "✅ Adoption successful. Let's start working on your project.",
         )
 
