@@ -57,18 +57,13 @@ The active ruleset `TSAR-Main-Protection` targets `refs/heads/main` and currentl
 The ruleset contains a `required_status_checks` rule with strict policy enabled, but its `required_status_checks` list is **empty**. Consequently, no individual CI check is actually required for merging yet. A repository administrator must populate that list with the exact observed check names: `Full verification (OPA, LSP, Terraform, pytest)`, `TSAR Self-Test`, `Claude Code Windows Hook Compatibility`, `Infrastructure Validation`, `TSAR Validate Rules`, and `TSAR Orchestrator`. The Terraform and Kubernetes child jobs are currently aggregated by the `Infrastructure Validation` job.
 
 A second qualified maintainer's approval is recommended when one is available. No approval requirement is represented as active today.
+## TSAR v1.2.0 — Stable Release (tag `v1.2.0`, 2026-11-18)
 
-## Next Stable Release Candidate — 1.2.0
+Version `1.2.0` is published as `TSAR v1.2.0 — Stable Release` (tag `v1.2.0`, 2026-11-18). Version metadata is aligned across `VERSION`, `manifest.yaml`, the CLI package, the LSP package, and the web package.
 
-The next stable release candidate is version `1.2.0`. Version metadata is
-updated together across `VERSION`, `manifest.yaml`, the CLI package, the LSP
-package, and the web package. This is a candidate, not a published release.
+Repository CI passes on the qualified snapshot (8/8 checks; 326 tests). The 1.2.0 wheel and sdist distributions are built, verified, and attached to the published GitHub Release with GitHub SLSA build provenance. Qualification for the TSAR core release is GitHub-only: repository CI, package/build verification, workflow validation, provenance configuration, and release metadata. No external AWS account setup, AWS provisioning, or live AWS test was required for publishing the TSAR core release.
 
-Repository CI passes on the qualified main snapshot (8/8 checks; 326 tests). The 1.2.0 wheel and sdist have been built and inspected in GitHub Actions. The release workflow is configured to generate GitHub SLSA build provenance and attach both distributions to the GitHub Release when a release is published; those release-time steps have not yet run. Qualification for the TSAR core release is GitHub-only: repository CI, package/build verification, workflow validation, provenance configuration, and release metadata. No external AWS account setup, AWS provisioning, or live AWS test is a prerequisite for publishing the TSAR core release.
-
-The AWS WORM service remains a separately scoped deployment candidate. Its code, Terraform, static checks, isolated tests, and GitHub workflow configuration may be reviewed in GitHub, but without a live AWS deployment it must not be described as operational or production-verified. This exclusion does not block the TSAR core `1.2.0` release.
-
-Before publishing, complete the GitHub-side release review: required-check governance status, SBOM, release notes, license/security notices, and the exact tag/commit review. No `v1.2.0` tag or GitHub Release exists yet; publish only after these GitHub-side gates pass and the release owner approves the exact tag and commit.
+The AWS WORM service remains a separately scoped deployment candidate. Its code, Terraform, static checks, isolated tests, and GitHub workflow configuration may be reviewed in GitHub, but without a live AWS deployment it must not be described as operational or production-verified. This exclusion does not affect the published TSAR core `v1.2.0` release.
 
 ## AWS WORM Service — Implementation vs. Operation
 
@@ -95,8 +90,7 @@ A separate Staging environment is **not a required project milestone** for TSAR.
 |---|---|
 | Historical v1.1.1 release | Qualified only for its recorded tag and commit |
 | Current main repository CI | Pass on `fb666df0cb4609624a287ccd59006b50051c6b55` (8/8; 326 tests) |
-| Current main as a new published release | Not qualified as a new release; no new version/tag has been created |
-| 1.2.0 candidate | GitHub-only qualification path; no tag/release created yet |
+| TSAR v1.2.0 — Stable Release | Published as tag `v1.2.0` (2026-11-18); GitHub-only qualification path passed 
 | AWS WORM operational behavior | Out of scope for core release; not verified and not operational |
 | Separate Staging environment | Not required |
 
