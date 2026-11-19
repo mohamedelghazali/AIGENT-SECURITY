@@ -231,13 +231,15 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
     fallback_warning_added = False
 
     manifest_present = bool(run_input.verified_files.get("manifest.yaml", False))
-    if not manifest_present and llms_fallback_valid and run_input.llms_full_verified_manifest:
+    if manifest_present:
+        mandatory_checks.append(MandatoryCheck(name="core_file:manifest.yaml", passed=True))
+    elif llms_fallback_valid and run_input.llms_full_verified_manifest:
         mandatory_checks.append(MandatoryCheck(name="core_file:manifest.yaml", passed=True))
         if not fallback_warning_added:
             non_blocking_issues.append(NonBlockingIssue(summary="Direct file retrieval blocked; verified mandatory governance content via complete llms-full.txt fallback."))
             fallback_warning_added = True
         else:
-           mandatory_checks.append(MandatoryCheck(name="core_file:manifest.yaml", passed=manifest_present, details="" if manifest_present else "Missing core file: manifest.yaml"))
+           mandatory_checks.append(MandatoryCheck(name="core_file:manifest.yaml", passed=False, details="Missing core file: manifest.yaml"))
             
     for rel_path in ("VERSION", "AGENTS.md"):
         present = bool(run_input.verified_files.get(rel_path, False))
