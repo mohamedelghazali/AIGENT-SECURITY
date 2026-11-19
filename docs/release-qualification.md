@@ -54,7 +54,7 @@ The active ruleset `TSAR-Main-Protection` targets `refs/heads/main` and currentl
 - Required linear history.
 - Zero required approving reviews.
 
-The ruleset contains a `required_status_checks` rule with strict policy enabled, but its `required_status_checks` list is **empty**. Consequently, no individual CI check is actually required for merging yet. A repository administrator must populate that list with the exact observed check names: `Full verification (OPA, LSP, Terraform, pytest)`, `TSAR Self-Test`, `Claude Code Windows Hook Compatibility`, `Infrastructure Validation`, `TSAR Validate Rules`, and `TSAR Orchestrator`. The Terraform and Kubernetes child jobs are currently aggregated by the `Infrastructure Validation` job.
+The `TSAR-Main-Protection` ruleset actively enforces the 6 required status checks (`Full verification (OPA, LSP, Terraform, pytest)`, `TSAR Self-Test`, `Claude Code Windows Hook Compatibility`, `Infrastructure Validation`, `TSAR Validate Rules`, and `TSAR Orchestrator`) with strict policy enabled on pull requests to `main`. The Terraform and Kubernetes child jobs are currently aggregated by the `Infrastructure Validation` job.
 
 A second qualified maintainer's approval is recommended when one is available. No approval requirement is represented as active today.
 ## TSAR v1.2.0 — Stable Release (tag `v1.2.0`, 2026-11-18)
@@ -94,6 +94,6 @@ A separate Staging environment is **not a required project milestone** for TSAR.
 | AWS WORM operational behavior | Out of scope for core release; not verified and not operational |
 | Separate Staging environment | Not required |
 
-Do not move or retarget the historical `v1.1.1` tag. The 1.2.0 candidate requires successful CI and the acceptance evidence above. Do not publish a tag or release until those conditions are met.
+Do not move or retarget historical release tags (`v1.1.1`, `v1.2.0`). Any future release (such as `v1.2.1`) requires successful CI and the acceptance evidence above before publishing a new tag or release.
 
 This qualification does not certify absence of vulnerabilities, guaranteed agent prompt compliance, regulatory compliance, or live cloud deployment behavior.

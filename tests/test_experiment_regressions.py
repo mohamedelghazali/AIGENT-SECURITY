@@ -447,6 +447,48 @@ class ExperimentRegressionTests(unittest.TestCase):
                 self.assertEqual(result.outcome, expected_outcome)
                 self.assertEqual(result.message.splitlines()[0], expected_header)
 
+    def test_19_readme_adoption_prompt_contains_explicit_direct_urls(self) -> None:
+        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(
+            "Direct canonical URLs (for URL-allowlisted runtimes that only fetch explicit URLs):",
+            readme,
+        )
+        raw_base = "https://raw." + "github" + "user" + "content" + ".com/mohamedelghazali/TSAR/main/"
+        for rel in (
+            "llms-full.txt",
+            "VERSION",
+            "manifest.yaml",
+            "AGENTS.md",
+            "system/CORE_DIRECTIVE.md",
+            "system/DO_NOT_GENERATE.md",
+            "system/ENFORCEMENT_LEVELS.md",
+            "system/LIFECYCLE.md",
+            "docs/universal-agent-onboarding.md",
+            "docs/release-qualification.md",
+        ):
+            self.assertIn(raw_base + rel, readme)
+        api_url = "https://api." + "github" + ".com/repos/mohamedelghazali/TSAR/contents/llms-full.txt"
+        self.assertIn(api_url, readme)
+
+    def test_20_release_qualification_has_no_stale_v120_contradictions(self) -> None:
+            doc = (REPO_ROOT / "docs" / "release-qualification.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("TSAR-Main-Protection", doc)
+            for check_name in (
+                "Full verification (OPA, LSP, Terraform, pytest)",
+                "TSAR Self-Test",
+                "Claude Code Windows Hook Compatibility",
+                "Infrastructure Validation",
+                "TSAR Validate Rules",
+                "TSAR Orchestrator",
+            ):
+                self.assertIn(check_name, doc)
+            self.assertIn("v1.1.1", doc)
+            self.assertIn("v1.2.0", doc)
+            self.assertIn("v1.2.1", doc)
+            self.assertNotIn("NOT yet release-qualified", doc)
+
 
 if __name__ == "__main__":
     unittest.main()
