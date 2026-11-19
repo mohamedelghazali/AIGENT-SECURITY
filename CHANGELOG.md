@@ -10,6 +10,11 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Agent bundle generator (`scripts/build_agent_bundle.py`), `llms-full.txt` bundle output, and `pyproject.toml` packaging support (PR #109).
 - Conformance runner (`tools/tsar-conformance/runner.py`) with passing behavioral conformance tests `AC-01` through `AC-04` (PR #110).
 
+### Fixed
+- Hardened `tools/tsar-conformance/verify_adoption.py` with explicit anti-loophole enforcement (rejecting README-only, landing-page-only, and directory-listing-only runs), stale/cached content freshness checks, honest `OptionalCheck(available=False, executed=False)` reporting in web-only runtimes, and real subprocess execution of `runner.py` and `consultation_verifier.py` in local checkouts.
+- Expanded `tests/test_experiment_regressions.py` to 18 tests including full 10-model adversarial validation fixtures.
+- Added explicit anti-loophole and freshness rules to the `README.md` AI agent adoption protocol.
+
 ## [1.2.0] — Stable Release, 2026-11-18
 
 ### Added

@@ -5,10 +5,12 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
+
 _ADOPTION_RESPONSE_PATH = Path(__file__).resolve().parent / "adoption_response.py"
 _SPEC = importlib.util.spec_from_file_location(
     "tsar_adoption_response", _ADOPTION_RESPONSE_PATH
@@ -73,14 +75,28 @@ class AdoptionRunInput:
     capabilities: RuntimeCapabilities = field(default_factory=RuntimeCapabilities)
     verified_files: dict[str, bool] = field(default_factory=dict)
     llms_full_fallback_used: bool = False
+    llms_full_complete: bool = True
+    llms_full_verified_manifest: bool = False
     llms_full_verified_directives: bool = False
+    readme_only: bool = False
+    landing_page_only: bool = False
+    directory_listing_only: bool = False
+    stale_or_cached_content: bool = False
+    expected_version: str | None = None
+    observed_version: str | None = None
+    expected_last_updated: str | None = None
+    observed_last_updated: str | None = None
+    expected_active_file_count: int | None = None
+    observed_active_file_count: int | None = None
     fail_closed: bool = True
     default_mode: str = "strict"
     allow_advisory_fallback: bool = False
     runner_executed: bool = False
     runner_passed: bool = False
+    runner_error: str = ""
     consultation_verifier_executed: bool = False
     consultation_verifier_passed: bool = False
+    consultation_verifier_error: str = ""
     non_blocking_issues: list[str] = field(default_factory=list)
     skipped_mandatory_checks: list[str] = field(default_factory=list)
 
@@ -94,7 +110,6 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         NonBlockingIssue(summary=issue)
         for issue in run_input.non_blocking_issues
     ]
-    skipped_mandatory = list(run_input.skipped_mandatory_checks)
 
     mandatory_checks.append(
         MandatoryCheck(
@@ -107,6 +122,75 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
             ),
         )
     )
+
+    if (
+        run_input.readme_only
+        or run_input.landing_page_only
+        or run_input.directory_listing_only
+    ):
+        surface_labels: list[str] = []
+        if run_input.readme_only:
+            surface_labels.append("README.md")
+        if run_input.landing_page_only:
+            surface_labels.append("repository landing page")
+        if run_input.directory_listing_only:
+            surface_labels.append("directory listing")
+        mandatory_checks.append(
+            MandatoryCheck(
+                name="anti_loophole_real_content",
+                passed=False,
+                details=(
+                    f"Reading {', '.join(surface_labels)} alone does not "
+                    "satisfy mandatory file consultation."
+                ),
+            )
+        )
+
+    freshness_errors: list[str] = []
+    if run_input.stale_or_cached_content:
+        freshness_errors.append("cached or stale release content detected")
+    if (
+        run_input.expected_version is not None
+        and run_input.observed_version is not None
+        and run_input.observed_version.strip() != run_input.expected_version.strip()
+    ):
+        freshness_errors.append(
+            f"version mismatch (observed {run_input.observed_version.strip()}, "
+            f"expected {run_input.expected_version.strip()})"
+        )
+    if (
+        run_input.expected_last_updated is not None
+        and run_input.observed_last_updated is not None
+        and run_input.observed_last_updated.strip()
+        != run_input.expected_last_updated.strip()
+    ):
+        freshness_errors.append(
+            f"manifest last_updated mismatch (observed "
+            f"{run_input.observed_last_updated.strip()}, expected "
+            f"{run_input.expected_last_updated.strip()})"
+        )
+    if (
+        run_input.expected_active_file_count is not None
+        and run_input.observed_active_file_count is not None
+        and run_input.observed_active_file_count
+        != run_input.expected_active_file_count
+    ):
+        freshness_errors.append(
+            f"active file count mismatch (observed "
+            f"{run_input.observed_active_file_count}, expected "
+            f"{run_input.expected_active_file_count})"
+        )
+    if freshness_errors:
+        mandatory_checks.append(
+            MandatoryCheck(
+                name="content_freshness",
+                passed=False,
+                details=(
+                    "Stale or mismatched TSAR content cannot establish "
+                    f"current adoption: {'; '.join(freshness_errors)}."
+                ),
+            )
+        )
 
     security_ok = (
         run_input.fail_closed is True
@@ -129,15 +213,52 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         )
     )
 
-    for rel_path in ("VERSION", "manifest.yaml", "AGENTS.md"):
-        present = bool(run_input.verified_files.get(rel_path, False))
+    if run_input.llms_full_fallback_used and not run_input.llms_full_complete:
         mandatory_checks.append(
             MandatoryCheck(
-                name=f"core_file:{rel_path}",
-                passed=present,
-                details="" if present else f"Missing core file: {rel_path}",
+                name="llms_full_bundle",
+                passed=False,
+                details=(
+                    "llms-full.txt fallback bundle is incomplete or "
+                    "inaccessible."
+                ),
             )
         )
+
+    llms_fallback_valid = (
+        run_input.llms_full_fallback_used and run_input.llms_full_complete
+    )
+    fallback_warning_added = False
+
+    for rel_path in ("VERSION", "manifest.yaml", "AGENTS.md"):
+        present = bool(run_input.verified_files.get(rel_path, False))
+        if (
+            rel_path == "manifest.yaml"
+            and not present
+            and llms_fallback_valid
+            and run_input.llms_full_verified_manifest
+        ):
+            mandatory_checks.append(
+                MandatoryCheck(name="core_file:manifest.yaml", passed=True)
+            )
+            if not fallback_warning_added:
+                non_blocking_issues.append(
+                    NonBlockingIssue(
+                        summary=(
+                            "Direct file retrieval blocked; verified mandatory "
+                            "governance content via complete llms-full.txt fallback."
+                        )
+                    )
+                )
+                fallback_warning_added = True
+        else:
+            mandatory_checks.append(
+                MandatoryCheck(
+                    name=f"core_file:{rel_path}",
+                    passed=present,
+                    details="" if present else f"Missing core file: {rel_path}",
+                )
+            )
 
     directives_present = all(
         bool(run_input.verified_files.get(path, False))
@@ -148,22 +269,21 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
             mandatory_checks.append(
                 MandatoryCheck(name=f"core_file:{path}", passed=True)
             )
-    elif (
-        run_input.llms_full_fallback_used
-        and run_input.llms_full_verified_directives
-    ):
+    elif llms_fallback_valid and run_input.llms_full_verified_directives:
         for path in SYSTEM_DIRECTIVES:
             mandatory_checks.append(
                 MandatoryCheck(name=f"core_file:{path}", passed=True)
             )
-        non_blocking_issues.append(
-            NonBlockingIssue(
-                summary=(
-                    "Directory crawling or raw file host blocked; verified "
-                    "system/*.md directives via llms-full.txt fallback."
+        if not fallback_warning_added:
+            non_blocking_issues.append(
+                NonBlockingIssue(
+                    summary=(
+                        "Directory crawling or raw file host blocked; verified "
+                        "system/*.md directives via complete llms-full.txt fallback."
+                    )
                 )
             )
-        )
+            fallback_warning_added = True
     else:
         for path in SYSTEM_DIRECTIVES:
             present = bool(run_input.verified_files.get(path, False))
@@ -175,35 +295,44 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
                 )
             )
 
+    for skipped_name in run_input.skipped_mandatory_checks:
+        mandatory_checks.append(
+            MandatoryCheck(
+                name=skipped_name,
+                executed=False,
+                passed=False,
+                details="Mandatory check was skipped.",
+            )
+        )
+
     if run_input.capabilities.requires_local_conformance_scripts:
         if not run_input.runner_executed:
-            skipped_mandatory.append("tools/tsar-conformance/runner.py")
             mandatory_checks.append(
                 MandatoryCheck(
                     name="conformance_runner",
+                    executed=False,
                     passed=False,
-                    details="runner.py was skipped in local Python checkout.",
+                    details="runner.py was not executed in local Python checkout.",
                 )
             )
         else:
             mandatory_checks.append(
                 MandatoryCheck(
                     name="conformance_runner",
+                    executed=True,
                     passed=run_input.runner_passed,
-                    details="" if run_input.runner_passed else "runner.py failed.",
+                    details="" if run_input.runner_passed else (run_input.runner_error.strip() or "runner.py failed."),
                 )
             )
 
         if not run_input.consultation_verifier_executed:
-            skipped_mandatory.append(
-                "tools/tsar-conformance/consultation_verifier.py"
-            )
             mandatory_checks.append(
                 MandatoryCheck(
                     name="consultation_verifier",
+                    executed=False,
                     passed=False,
                     details=(
-                        "consultation_verifier.py was skipped in local "
+                        "consultation_verifier.py was not executed in local "
                         "Python checkout."
                     ),
                 )
@@ -212,11 +341,12 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
             mandatory_checks.append(
                 MandatoryCheck(
                     name="consultation_verifier",
+                    executed=True,
                     passed=run_input.consultation_verifier_passed,
                     details=(
                         ""
                         if run_input.consultation_verifier_passed
-                        else "consultation_verifier.py failed."
+                        else (run_input.consultation_verifier_error.strip() or "consultation_verifier.py failed.")
                     ),
                 )
             )
@@ -224,9 +354,11 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         optional_checks.append(
             OptionalCheck(
                 name="local_conformance_scripts",
+                available=False,
+                executed=False,
                 passed=False,
                 details=(
-                    "Local conformance scripts skipped: no local checkout "
+                    "Local conformance scripts unavailable: no local checkout "
                     "and Python runtime."
                 ),
             )
@@ -241,39 +373,123 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         )
 
     evaluation = AdoptionEvaluation(
+        repository_accessible=run_input.repository_accessible,
         mandatory_checks=mandatory_checks,
         optional_checks=optional_checks,
         non_blocking_issues=non_blocking_issues,
-        
     )
     return classify_and_format_adoption(evaluation)
 
 
-def _parse_manifest_security_posture(manifest_text: str) -> tuple[bool, str, bool]:
+def _parse_manifest_metadata(
+    manifest_text: str,
+) -> tuple[bool, str, bool, str | None]:
     fail_closed = False
     default_mode = ""
     allow_advisory_fallback = True
+    manifest_version: str | None = None
 
     for raw_line in manifest_text.splitlines():
         line = raw_line.strip()
-        if line.startswith("fail_closed:"):
+        if line.startswith("version:") and manifest_version is None:
+            manifest_version = (
+                line.split(":", 1)[1].strip().strip("'").strip('"')
+            )
+        elif line.startswith("fail_closed:"):
             fail_closed = line.split(":", 1)[1].strip().lower() == "true"
         elif line.startswith("default_mode:"):
             default_mode = (
-                line.split(":", 1)[1].strip().strip('"').strip("'").lower()
+                line.split(":", 1)[1].strip().strip("'").strip('"').lower()
             )
         elif line.startswith("allow_advisory_fallback:"):
             allow_advisory_fallback = (
                 line.split(":", 1)[1].strip().lower() == "true"
             )
 
+    return fail_closed, default_mode, allow_advisory_fallback, manifest_version
+
+
+def _parse_manifest_security_posture(manifest_text: str) -> tuple[bool, str, bool]:
+    fail_closed, default_mode, allow_advisory_fallback, _ = (
+        _parse_manifest_metadata(manifest_text)
+    )
     return fail_closed, default_mode, allow_advisory_fallback
 
+
+def _execute_local_runner(root: Path) -> tuple[bool, bool, str]:
+    runner_path = root / "tools/tsar-conformance/runner.py"
+    if not runner_path.is_file():
+        return False, False, "runner.py missing."
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(runner_path), "--json"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+        if proc.returncode == 0:
+            return True, True, ""
+        err = (proc.stderr or proc.stdout or f"exit code {proc.returncode}").strip()
+        return True, False, f"runner.py failed: {err[:200]}"
+    except (OSError, subprocess.SubprocessError) as exc:
+        return True, False, f"runner.py failed: {exc}"
+
+
+def _execute_local_consultation_verifier(root: Path) -> tuple[bool, bool, str]:
+    verifier_path = root / "tools/tsar-conformance/consultation_verifier.py"
+    if not verifier_path.is_file():
+        return False, False, "consultation_verifier.py missing."
+    try:
+        expected_proc = subprocess.run(
+            [
+                sys.executable,
+                str(verifier_path),
+                "--repo-root",
+                str(root),
+                "--print-expected",
+            ],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+        if expected_proc.returncode != 0:
+           return True, False, f"consultation_verifier.py failed (exit {expected_proc.returncode})"
+        expected_digests = json.loads(expected_proc.stdout)
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".json", encoding="utf-8", delete=True
+        ) as tmp:
+            json.dump({"digests": expected_digests}, tmp)
+            tmp.flush()
+            verify_proc = subprocess.run(
+                [
+                    sys.executable,
+                    str(verifier_path),
+                    "--repo-root",
+                    str(root),
+                    "--evidence",
+                    tmp.name,
+                ],
+                cwd=root,
+                capture_output=True,
+                text=True,
+                timeout=60,
+                check=False,
+            )
+        if verify_proc.returncode == 0:
+            return True, True, ""
+        err = (verify_proc.stderr or verify_proc.stdout or f"exit code {verify_proc.returncode}").strip()
+        return True, False, f"consultation_verifier.py failed: {err[:200]}"
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        return True, False, f"consultation_verifier.py failed: {exc}"
 
 def verify_local_repository_checkout(
     repo_root: Path | str | None = None,
 ) -> AdoptionResponse:
-    """Verify an actual TSAR repository checkout on local disk."""
+    """Verify an actual TSAR repository checkout on local disk by executing real checks."""
 
     root = (
         Path(repo_root).resolve()
@@ -293,19 +509,27 @@ def verify_local_repository_checkout(
 
     verified_files = {rel: (root / rel).is_file() for rel in CORE_FILES}
     manifest_path = root / "manifest.yaml"
+    version_path = root / "VERSION"
+    expected_version: str | None = None
+    observed_version: str | None = None
+
+    if version_path.is_file():
+        expected_version = version_path.read_text(encoding="utf-8").strip()
+
     if manifest_path.is_file():
-        fail_closed, default_mode, allow_advisory_fallback = (
-            _parse_manifest_security_posture(
-                manifest_path.read_text(encoding="utf-8")
-            )
-        )
+        (
+            fail_closed,
+            default_mode,
+            allow_advisory_fallback,
+            observed_version,
+        ) = _parse_manifest_metadata(manifest_path.read_text(encoding="utf-8"))
     else:
         fail_closed, default_mode, allow_advisory_fallback = False, "", True
 
-    runner_present = (root / "tools/tsar-conformance/runner.py").is_file()
-    verifier_present = (
-        root / "tools/tsar-conformance/consultation_verifier.py"
-    ).is_file()
+    runner_executed, runner_passed, runner_error = _execute_local_runner(root)
+    verifier_executed, verifier_passed, verifier_error= _execute_local_consultation_verifier(
+        root
+    )
 
     return evaluate_adoption_run(
         AdoptionRunInput(
@@ -315,13 +539,17 @@ def verify_local_repository_checkout(
                 has_python_runtime=True,
             ),
             verified_files=verified_files,
+            expected_version=expected_version,
+            observed_version=observed_version,
             fail_closed=fail_closed,
             default_mode=default_mode,
             allow_advisory_fallback=allow_advisory_fallback,
-            runner_executed=runner_present,
-            runner_passed=runner_present,
-            consultation_verifier_executed=verifier_present,
-            consultation_verifier_passed=verifier_present,
+            runner_executed=runner_executed,
+            runner_passed=runner_passed,
+            runner_error=runner_error,
+            consultation_verifier_executed=verifier_executed,
+            consultation_verifier_passed=verifier_passed,
+            consultation_verifier_error=verifier_error,
         )
     )
 
