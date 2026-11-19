@@ -495,14 +495,14 @@ class ExperimentRegressionTests(unittest.TestCase):
         self.assertTrue(result.message.startswith("\u26a0\ufe0f"))
         self.assertIn("supplementary_file:VERSION", result.message)
         self.assertIn("supplementary_file:AGENTS.md", result.message)
-def test_22_local_checkout_missing_version_or_agents_still_fails_closed(self) -> None:
-       for missing_file in ("VERSION", "AGENTS.md"):
-           with self.subTest(missing_file=missing_file):
-               verified = {**ALL_CORE_FILES, missing_file: False}
-            result = evaluate_adoption_run(AdoptionRunInput(repository_accessible=True, capabilities=RuntimeCapabilities(has_local_checkout=True, has_python_runtime=True), verified_files=verified, runner_executed=True, runner_passed=True, consultation_verifier_executed=True, consultation_verifier_passed=True))
-                self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
-                self.assertTrue(result.message.startswith("\u274c"))
-                self.assertIn(f"Missing core file: {missing_file}", result.message)
+    def test_22_local_checkout_missing_version_or_agents_still_fails_closed(self) -> None:
+           for missing_file in ("VERSION", "AGENTS.md"):
+               with self.subTest(missing_file=missing_file):
+                   verified = {**ALL_CORE_FILES, missing_file: False}
+                result = evaluate_adoption_run(AdoptionRunInput(repository_accessible=True, capabilities=RuntimeCapabilities(has_local_checkout=True, has_python_runtime=True), verified_files=verified, runner_executed=True, runner_passed=True, consultation_verifier_executed=True, consultation_verifier_passed=True))
+                    self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
+                    self.assertTrue(result.message.startswith("\u274c"))
+                    self.assertIn(f"Missing core file: {missing_file}", result.message)
     def test_23_latest_four_model_run_integration_deepseek_chatgpt_claude_copilot(self) -> None:
         web_only = RuntimeCapabilities(has_local_checkout=False, has_python_runtime=False)
         directives_and_manifest = {"manifest.yaml": True, "system/CORE_DIRECTIVE.md": True, "system/DO_NOT_GENERATE.md": True, "system/ENFORCEMENT_LEVELS.md": True, "system/LIFECYCLE.md": True}
