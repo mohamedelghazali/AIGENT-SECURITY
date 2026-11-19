@@ -499,7 +499,7 @@ def test_22_local_checkout_missing_version_or_agents_still_fails_closed(self) ->
        for missing_file in ("VERSION", "AGENTS.md"):
            with self.subTest(missing_file=missing_file):
                verified = {**ALL_CORE_FILES, missing_file: False}
-                result = evaluate_adoption_run(AdoptionRunInput(repository_accessible=True, capabilities=RuntimeCapabilities(has_local_checkout=True, has_python_runtime=True), verified_files=verified, runner_executed=True, runner_passed=True, consultation_verifier_executed=True, consultation_verifier_passed=True))
+            result = evaluate_adoption_run(AdoptionRunInput(repository_accessible=True, capabilities=RuntimeCapabilities(has_local_checkout=True, has_python_runtime=True), verified_files=verified, runner_executed=True, runner_passed=True, consultation_verifier_executed=True, consultation_verifier_passed=True))
                 self.assertEqual(result.outcome, AdoptionOutcome.FAILED)
                 self.assertTrue(result.message.startswith("\u274c"))
                 self.assertIn(f"Missing core file: {missing_file}", result.message)
