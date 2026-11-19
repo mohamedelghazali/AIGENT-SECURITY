@@ -243,8 +243,8 @@ def evaluate_adoption_run(run_input: AdoptionRunInput) -> AdoptionResponse:
         present = bool(run_input.verified_files.get(rel_path, False))
         if present:
             mandatory_checks.append(MandatoryCheck(name=f"core_file:{rel_path}", passed=True))
-            elif run_input.capabilities.has_local_checkout:
-               mandatory_checks.append(MandatoryCheck(name=f"core_file:{rel_path}", passed=False, details=f"Missing core file: {rel_path}"))
+        elif run_input.capabilities.has_local_checkout:
+           mandatory_checks.append(MandatoryCheck(name=f"core_file:{rel_path}", passed=False, details=f"Missing core file: {rel_path}"))
         else:
             optional_checks.append(OptionalCheck(name=f"supplementary_file:{rel_path}", available=True, executed=False, passed=False, details=f"{rel_path} not fetched separately in web-only runtime (version and governance metadata supplied by manifest.yaml)."))
             
