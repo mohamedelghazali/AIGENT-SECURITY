@@ -470,24 +470,24 @@ class ExperimentRegressionTests(unittest.TestCase):
         api_url = "https://api." + "github" + ".com/repos/mohamedelghazali/TSAR/contents/llms-full.txt"
         self.assertIn(api_url, readme)
 
-def test_20_release_qualification_has_no_stale_v120_contradictions(self) -> None:
-        doc = (REPO_ROOT / "docs" / "release-qualification.md").read_text(
-            encoding="utf-8"
-        )
-        self.assertIn("TSAR-Main-Protection", doc)
-        for check_name in (
-            "Full verification (OPA, LSP, Terraform, pytest)",
-            "TSAR Self-Test",
-            "Claude Code Windows Hook Compatibility",
-            "Infrastructure Validation",
-            "TSAR Validate Rules",
-            "TSAR Orchestrator",
-        ):
-            self.assertIn(check_name, doc)
-        self.assertIn("v1.1.1", doc)
-        self.assertIn("v1.2.0", doc)
-        self.assertIn("v1.2.1", doc)
-        self.assertNotIn("NOT yet release-qualified", doc)
+    def test_20_release_qualification_has_no_stale_v120_contradictions(self) -> None:
+            doc = (REPO_ROOT / "docs" / "release-qualification.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("TSAR-Main-Protection", doc)
+            for check_name in (
+                "Full verification (OPA, LSP, Terraform, pytest)",
+                "TSAR Self-Test",
+                "Claude Code Windows Hook Compatibility",
+                "Infrastructure Validation",
+                "TSAR Validate Rules",
+                "TSAR Orchestrator",
+            ):
+                self.assertIn(check_name, doc)
+            self.assertIn("v1.1.1", doc)
+            self.assertIn("v1.2.0", doc)
+            self.assertIn("v1.2.1", doc)
+            self.assertNotIn("NOT yet release-qualified", doc)
 
 
 if __name__ == "__main__":
