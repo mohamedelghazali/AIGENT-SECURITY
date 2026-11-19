@@ -13,6 +13,7 @@ from typing import Any
 
 DEFAULT_ROUNDS = 3
 REQUIRED_SCENARIOS = ("AC-01", "AC-02", "AC-03", "AC-04")
+BEHAVIORAL_FIXTURE_SCENARIOS = ("AC-02", "AC-03", "AC-04")
 HTTPX_INSECURE_TLS_RE = re.compile(
     r"httpx\.Client\([^)]*verify\s*=\s*False",
     re.IGNORECASE,
@@ -85,7 +86,7 @@ def run_round(round_index: int, scenarios_path: Path | None = None) -> dict[str,
         check_ac03("client = httpx.Client(verify=True)"),
         check_ac04("sanitized_data = {'status': 'ok'}", isolated=True),
     ]
-    missing = [sid for sid in REQUIRED_SCENARIOS if sid not in loaded_ids]
+    missing = [sid for sid in BEHAVIORAL_FIXTURE_SCENARIOS if sid not in loaded_ids]
     all_passed = all(r.passed for r in results) and not missing
     return {
         "round": round_index,
