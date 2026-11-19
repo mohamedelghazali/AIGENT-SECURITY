@@ -147,11 +147,24 @@ Adopt TSAR (https://github.com/mohamedelghazali/TSAR) as my provider-neutral sec
 
 ## 3. REAL-FILE CONSULTATION & VERIFICATION
 - Primary bundle: `llms-full.txt` at the repository root and/or direct repository files (`AGENTS.md`, `manifest.yaml`, `VERSION`, `docs/universal-agent-onboarding.md`, `docs/release-qualification.md`, and the 4 `system/` directives). Specifically: `system/CORE_DIRECTIVE.md`, `system/DO_NOT_GENERATE.md`, `system/ENFORCEMENT_LEVELS.md`, and `system/LIFECYCLE.md`. If raw file hosts (`raw.githubusercontent.com`) are blocked, fetch `llms-full.txt` via the GitHub REST API contents endpoint (`/repos/mohamedelghazali/TSAR/contents/llms-full.txt`).
+- Direct canonical URLs (for URL-allowlisted runtimes that only fetch explicit URLs):
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/llms-full.txt
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/VERSION
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/manifest.yaml
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/AGENTS.md
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/CORE_DIRECTIVE.md
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/DO_NOT_GENERATE.md
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/ENFORCEMENT_LEVELS.md
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/LIFECYCLE.md
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/docs/universal-agent-onboarding.md
+  - https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/docs/release-qualification.md
+  - https://api.github.com/repos/mohamedelghazali/TSAR/contents/llms-full.txt
 - When local shell/Python access is available, verify consultation and conformance using `tools/tsar-conformance/consultation_verifier.py` and `tools/tsar-conformance/runner.py`.
 - Runtime-capability classification rule: local conformance scripts (`tools/tsar-conformance/verify_adoption.py`, `consultation_verifier.py`, `runner.py`, `adoption_response.py`, and `tools/tsar-cli/verify_upstream.py`) are mandatory ONLY when both a local checkout and a Python runtime exist; otherwise classify them as `unavailable`/`optional` -> State C (`⚠️`), never false `❌` and never false `✅`.
 - Anti-loophole consultation rule: Reading `README.md`, the GitHub repository landing page, or a directory listing alone NEVER satisfies mandatory file consultation. Successful consultation requires actual readable content from `manifest.yaml` and all 4 core directives (`system/CORE_DIRECTIVE.md`, `system/DO_NOT_GENERATE.md`, `system/ENFORCEMENT_LEVELS.md`, `system/LIFECYCLE.md`), either individually or via a verified complete `llms-full.txt`. An incomplete or inaccessible `llms-full.txt` MUST return `❌ Adoption failed.` — never downgrade a mandatory failure to `⚠️`.
 - Freshness rule: Cached or stale content (e.g., outdated `VERSION`, older `last_updated` date, or mismatched active file count such as `171` instead of `175`) cannot establish current adoption and MUST return `❌ Adoption failed.`.
 - Only report files actually read and checks actually executed.
+
 ## 4. 4-WAY SCOPE SEPARATION & OFFICIAL SKILLS
 Keep these four scopes strictly separate:
 1. **In-task governance:** Applying TSAR rules and the `CONSULT -> CLASSIFY -> DESIGN -> IMPLEMENT -> SCAN -> REVIEW -> VERIFY -> REPORT` cycle within the current task.
