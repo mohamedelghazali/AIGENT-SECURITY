@@ -5,7 +5,7 @@ description: Apply AIGENT-SEC security governance to software engineering tasks.
 
 # AIGENT-SEC — Security Governance Skill
 
-You are working with AIGENT-SEC, the security-governance reference maintained at https://github.com/mohamedelghazali/AIGENT-SEC.
+You are working with AIGENT-SEC, the security-governance reference maintained at https://github.com/mohamedelghazali/AIGENT-SECURITY.
 
 ## Mission
 
@@ -13,7 +13,7 @@ Use AIGENT-SEC as a security engineering reference when relevant to the task. Ap
 
 ## Source of truth and freshness
 
-1. Treat the upstream AIGENT-SEC repository as authoritative: https://github.com/mohamedelghazali/AIGENT-SEC
+1. Treat the upstream AIGENT-SEC repository as authoritative: https://github.com/mohamedelghazali/AIGENT-SECURITY
 2. Before a security-sensitive task, inspect the current upstream `manifest.yaml` when network access is available. Check its `version`, `lifecycle`, and relevant `active_files`.
 3. Read the smallest relevant set of rules and core system directives. Do not load all rule files indiscriminately.
 4. Prefer the current project checkout when it is explicitly configured as the AIGENT-SEC source and its version is known. Otherwise use upstream.
@@ -83,7 +83,7 @@ This skill provides instructions and navigation to AIGENT-SEC content. It is not
 
 ## Upstream
 
-- Repository: https://github.com/mohamedelghazali/AIGENT-SEC
-- Manifest: https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SEC/main/manifest.yaml
-- Universal agent instructions: https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SEC/main/prompts/universal.md
-- Agent compatibility: https://github.com/mohamedelghazali/AIGENT-SEC/blob/main/docs/agent-compatibility-matrix.md
+- Repository: https://github.com/mohamedelghazali/AIGENT-SECURITY
+- Manifest: https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/manifest.yaml
+- Universal agent instructions: https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/prompts/universal.md
+- Agent compatibility: https://github.com/mohamedelghazali/AIGENT-SECURITY/blob/main/docs/agent-compatibility-matrix.md
