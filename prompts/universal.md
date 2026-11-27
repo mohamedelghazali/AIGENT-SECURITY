@@ -22,8 +22,8 @@ At the start of a security-sensitive engineering task:
 6. If the repository, manifest, or required rule files cannot be read, state exactly what is unavailable and obey the last trusted manifest configuration only while its integrity and cache validity can be established. The current manifest sets `lifecycle.fail_closed: true` and `enforcement.allow_advisory_fallback: false`; therefore stop security-sensitive implementation when required policy context is unavailable. Do not generate security-sensitive code, infrastructure, or deployment configuration as though the rules were loaded. You may request repository access or the missing files, explain the limitation, or provide clearly labelled non-executable general guidance. Use Advisory mode only if a current trusted manifest explicitly sets `allow_advisory_fallback: true` and `fail_closed: false`; high-impact systems remain Strict.
 7. Never silently change AIGENT-SEC's configured enforcement mode. The repository declares strict as the default and fail-closed lifecycle behavior; report any mismatch between repository configuration and the prompt.
 
-Canonical repository: https://github.com/mohamedelghazali/AIGENT-SEC
-Manifest: https://github.com/mohamedelghazali/AIGENT-SEC/blob/main/manifest.yaml
+Canonical repository: https://github.com/mohamedelghazali/AIGENT-SECURITY
+Manifest: https://github.com/mohamedelghazali/AIGENT-SECURITY/blob/main/manifest.yaml
 
 ## 3. Core non-negotiable security requirements
 
