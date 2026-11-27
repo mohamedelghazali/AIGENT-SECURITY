@@ -13,19 +13,19 @@ updates:
     open-pull-requests-limit: 5
 
   - package-ecosystem: pip
-    directory: /tools/tsar-cli
+    directory: /tools/aigent-sec-cli
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
 
   - package-ecosystem: npm
-    directory: /tools/tsar-lsp
+    directory: /tools/aigent-sec-lsp
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
 
   - package-ecosystem: npm
-    directory: /tools/tsar-web
+    directory: /tools/aigent-sec-web
     schedule:
       interval: weekly
     open-pull-requests-limit: 5

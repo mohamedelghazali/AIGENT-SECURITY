@@ -1,6 +1,6 @@
 # Tool Boundary Adapter
 
-`tools/tsar-cli/tool_boundary.py` provides a reusable fail-closed dispatch boundary for host integrations that control tool invocation. It is an E3 building block, not a universal agent interceptor.
+`tools/aigent-sec-cli/tool_boundary.py` provides a reusable fail-closed dispatch boundary for host integrations that control tool invocation. It is an E3 building block, not a universal agent interceptor.
 
 ## Trust boundary
 

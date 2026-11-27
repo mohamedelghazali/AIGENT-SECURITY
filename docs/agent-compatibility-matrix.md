@@ -1,6 +1,6 @@
 # Agent Compatibility Matrix
 
-TSAR maintains **one authoritative instruction set** and a registry of 15 compatibility profiles. The profiles describe how each product can receive the same policy text; they are not independent policy copies or proof of provider enforcement.
+AIGENT-SEC maintains **one authoritative instruction set** and a registry of 15 compatibility profiles. The profiles describe how each product can receive the same policy text; they are not independent policy copies or proof of provider enforcement.
 
 Canonical policy source: [prompts/universal.md](../prompts/universal.md)  
 Machine-readable profile registry: [integrations/agent-profiles.json](../integrations/agent-profiles.json)
@@ -35,16 +35,16 @@ Machine-readable profile registry: [integrations/agent-profiles.json](../integra
 
 ## Local fallback procedure
 
-1. Clone TSAR into the project (for example, .tsar/).
+1. Clone AIGENT-SEC into the project (for example, .tsar/).
 2. Configure the agent's supported instruction mechanism to load .tsar/prompts/universal.md.
 3. Use the matching profile in .tsar/integrations/agent-profiles.json to determine the host-specific target.
-4. Set TSAR_DIR=.tsar in CI where applicable.
-5. Keep policy files pinned to one immutable TSAR commit and verify the manifest before security-sensitive work.
+4. Set AIGENT-SEC_DIR=.tsar in CI where applicable.
+5. Keep policy files pinned to one immutable AIGENT-SEC commit and verify the manifest before security-sensitive work.
 
 ## Verification
 
-After loading the shared instructions, use a harmless smoke test such as requesting a parameterized database query and verify that the response uses parameter binding rather than string concatenation. This checks instruction loading only. Also run deterministic TSAR scanners and CI checks. For provider-specific runtime claims, follow the [15-Agent Runtime Conformance Plan](agent-runtime-conformance-plan.md).
+After loading the shared instructions, use a harmless smoke test such as requesting a parameterized database query and verify that the response uses parameter binding rather than string concatenation. This checks instruction loading only. Also run deterministic AIGENT-SEC scanners and CI checks. For provider-specific runtime claims, follow the [15-Agent Runtime Conformance Plan](agent-runtime-conformance-plan.md).
 
 ## Native hook integrations
 
-Claude Code currently has the documented optional TSAR hook integration. Its guarantees apply only to the exact hook events, tools, and strict profile covered by its tests. It does not establish authenticated live-provider conformance or generalize to other providers. See [Claude Code enforcement integration](claude-code-enforcement.md).
+Claude Code currently has the documented optional AIGENT-SEC hook integration. Its guarantees apply only to the exact hook events, tools, and strict profile covered by its tests. It does not establish authenticated live-provider conformance or generalize to other providers. See [Claude Code enforcement integration](claude-code-enforcement.md).

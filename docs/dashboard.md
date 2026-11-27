@@ -1,6 +1,6 @@
 # TSAR Dashboard
 
-The `tools/tsar-web` dashboard provides a read-only view of TSAR coverage.
+The `tools/aigent-sec-web` dashboard provides a read-only view of TSAR coverage.
 
 ## Features
 - Manifest version and last update.
@@ -15,7 +15,7 @@ The `tools/tsar-web` dashboard provides a read-only view of TSAR coverage.
 - Intended for internal use behind SSO.
 
 ## Deployment
-1. `cd tools/tsar-web`
+1. `cd tools/aigent-sec-web`
 2. `npm install && npm run build`
 3. Serve behind an authenticated reverse proxy.
 4. Restrict access to security team.

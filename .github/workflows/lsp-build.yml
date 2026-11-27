@@ -3,10 +3,10 @@ name: Build TSAR LSP
 on:
   push:
     paths:
-      - 'tools/tsar-lsp/**'
+      - 'tools/aigent-sec-lsp/**'
   pull_request:
     paths:
-      - 'tools/tsar-lsp/**'
+      - 'tools/aigent-sec-lsp/**'
 
 permissions:
   contents: read
@@ -21,4 +21,4 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0 # v4
         with:
           node-version: '20'
-      - run: cd tools/tsar-lsp && npm install && npm run build
+      - run: cd tools/aigent-sec-lsp && npm install && npm run build

@@ -22,7 +22,7 @@ UPSTREAM = {
 }
 
 ROOT = Path(__file__).resolve().parent.parent
-CACHE_DIR = ROOT / ".tsar-cache"
+CACHE_DIR = ROOT / ".aigent-sec-cache"
 MAX_SOURCE_BYTES = 5 * 1024 * 1024
 FETCH_ATTEMPTS = 3
 RETRYABLE_HTTP_CODES = {429, 500, 502, 503, 504}

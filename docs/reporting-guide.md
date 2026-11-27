@@ -10,7 +10,7 @@
 
 ## Generation
 ```bash
-python tools/tsar-report/generate.py . --format html --output report.html
+python tools/aigent-sec-report/generate.py . --format html --output report.html
 ```
 
 ## Distribution

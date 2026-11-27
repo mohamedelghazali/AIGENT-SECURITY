@@ -1,0 +1,15 @@
+[project]
+name = "tsar-cli"
+version = "1.2.0"
+description = "AIGENT-SEC security engineering CLI"
+requires-python = ">=3.10"
+dependencies = ["pyyaml>=6.0.0", "cryptography>=42.0.0"]
+
+[project.scripts]
+aigent-sec = "tsar:main"
+aigent-sec-claude-hook = "claude_code_hook:main"
+tsar = "tsar:main"
+tsar-claude-hook = "claude_code_hook:main"
+
+[tool.setuptools]
+py-modules = ["tsar", "sarif", "verify_upstream", "lifecycle_engine", "lifecycle_orchestrator", "lifecycle_evidence", "lifecycle_anchor", "agent_adapter", "tool_boundary", "output_verification", "reference_host", "claude_code_hook"]

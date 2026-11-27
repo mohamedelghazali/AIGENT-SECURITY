@@ -49,7 +49,7 @@ class AgentCompatibilityArchitectureTests(unittest.TestCase):
     def test_all_profiles_share_the_single_canonical_instruction_source(self) -> None:
         self.assertTrue(CANONICAL.is_file())
         canonical = CANONICAL.read_text(encoding="utf-8")
-        self.assertIn("single authoritative TSAR instruction set", canonical)
+        self.assertIn("single authoritative AIGENT-SEC instruction set", canonical)
         for profile in self.profiles:
             with self.subTest(agent=profile["name"]):
                 self.assertEqual(profile["canonical_instructions"], "prompts/universal.md")
@@ -68,7 +68,7 @@ class AgentCompatibilityArchitectureTests(unittest.TestCase):
                 content = path.read_text(encoding="utf-8")
                 self.assertIn("Legacy Compatibility Pointer", content)
                 self.assertIn("universal.md", content)
-                self.assertIn("independent TSAR policy", content)
+                self.assertIn("independent AIGENT-SEC policy", content)
 
     def test_only_claude_code_declares_the_optional_native_hook_adapter(self) -> None:
         hooked = [p["name"] for p in self.profiles if p["native_adapter"]]

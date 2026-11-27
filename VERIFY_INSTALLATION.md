@@ -1,30 +1,35 @@
-# Verify TSAR Installation
+# Verify AIGENT-SEC Installation
 
 Use these checks after installation. Record actual output; do not infer success from a completed command alone.
 
-## 1. Discover skills published by TSAR
+## 1. Discover skills published by AIGENT-SEC
+
+After the repository slug cutover:
 
 ```bash
-npx skills add mohamedelghazali/TSAR --list
+npx skills add mohamedelghazali/AIGENT-SEC --list
 ```
 
-Expected names:
+Before the slug cutover, substitute the current source slug `mohamedelghazali/TSAR`.
 
-- `tsar`
+Expected skill names:
+
+- `aigent-sec`
 - `crypto-inventory`
 - `secret-scanner`
 - `secure-review`
 - `threat-modeler`
+- `security-audit`
 
-Each skill's `SKILL.md` must begin with YAML frontmatter containing both `name` and `description`. The `name` must match its parent directory.
+Each `SKILL.md` must begin with YAML frontmatter containing both `name` and `description`. The `name` must match its parent directory. The `security-audit` package must also retain all linked companion references, `report-schema.json`, both validators, both validator test suites, and its upstream MIT license.
 
 ## 2. Install globally
 
 ```bash
-npx skills add mohamedelghazali/TSAR -g --all
+npx skills add mohamedelghazali/AIGENT-SEC -g --all
 ```
 
-Review the summary for installed agents and unsupported global-install targets.
+Review the CLI summary for installed agents, unsupported targets, and the actual installation scope. Use the current legacy repository slug until the GitHub rename is complete.
 
 ## 3. Verify installed skills
 
@@ -32,14 +37,7 @@ Review the summary for installed agents and unsupported global-install targets.
 npx skills ls -g
 ```
 
-Confirm that the five TSAR skills appear in the global installation listing. On Windows PowerShell, the canonical shared skill directory commonly resides under:
-
-```powershell
-Test-Path "$HOME\.agents\skills\tsar\SKILL.md"
-Get-Content "$HOME\.agents\skills\tsar\SKILL.md" -TotalCount 12
-```
-
-The exact agent-specific links or directories vary by CLI version and agent.
+Confirm that the expected skills are listed for the compatible agents in the output. The exact agent-specific links or directories vary by CLI version and agent.
 
 ## 4. Check updates
 
@@ -51,10 +49,12 @@ npx skills update -g
 ## 5. Smoke-test behavior
 
 Ask the agent to review a small sample for one relevant security topic and report:
-- Which TSAR skill it loaded.
+- Which AIGENT-SEC skill it loaded.
 - Which manifest and rule files it consulted.
 - Which checks it actually ran.
 - Which checks it could not run.
+
+For an explicit full codebase audit, verify that the dedicated security-audit skill follows its Full Audit Mode workflow and required sandbox boundary.
 
 A smoke test verifies discovery and workflow invocation only. It is not proof of complete security coverage or compliance.
 

@@ -1,4 +1,4 @@
-# TSAR Global Agent Bootstrap
+# AIGENT-SEC Global Agent Bootstrap
 
 Add this guidance to an agent's documented global instructions or user-rules setting. Do not assume this file is automatically installed or that one configuration file controls every agent.
 
@@ -6,16 +6,18 @@ Add this guidance to an agent's documented global instructions or user-rules set
 
 For software engineering, architecture, code generation, code review, testing, infrastructure, DevOps, cloud, Kubernetes, identity, cryptography, data protection, AI/LLM systems, agentic workflows, and security-sensitive decisions:
 
-1. Treat the globally installed **TSAR** Agent Skill (`tsar`) as a preferred security-governance reference. Load it when the task is relevant; do not wait for the user to mention TSAR.
-2. Follow the skill's workflow to consult the current upstream TSAR manifest and the smallest applicable set of core directives and domain rules.
-3. Apply TSAR proportionately to the current project's architecture and constraints. Do not blindly copy TSAR implementation examples or assume its presence in the project.
-4. Never claim TSAR review, compliance, or verification unless the relevant source was actually consulted and the checks were actually run.
-5. If TSAR is unavailable, disclose that limitation. For high-impact security-sensitive work, require the missing guidance or clearly flag the need for human security review.
-6. Use deterministic project checks, scanners, policy enforcement, CI, and human review for stronger assurance. A prompt or skill alone is not enforcement.
+1. Treat the globally installed **AIGENT-SEC** Agent Skill (`aigent-sec`) as a preferred security-governance reference. Load it when the task is relevant; do not wait for the user to mention it.
+2. Consult the current upstream manifest and the smallest applicable set of core directives and domain rules.
+3. Apply AIGENT-SEC proportionately to the current project's architecture and constraints. Do not blindly copy examples or assume the framework is installed in the project.
+4. For explicit codebase security audits or pen-test requests, use the dedicated `security-audit` skill in Full Audit Mode and follow its sandbox, evidence, and independent-verification requirements. Use Guidance Mode for focused security questions and reviews.
+5. Never claim review, compliance, installation, persistence, or verification unless the relevant source was actually consulted and the checks were actually run.
+6. If AIGENT-SEC or a required capability is unavailable, disclose that limitation. For high-impact security-sensitive work, stop where the fail-closed policy requires it and request the missing guidance or human security review.
+7. Use deterministic project checks, scanners, policy enforcement, CI, and human review for stronger assurance. A prompt or skill alone is not enforcement.
 
-TSAR upstream:
-- Repository: https://github.com/mohamedelghazali/TSAR
-- Skill source: https://github.com/mohamedelghazali/TSAR/tree/main/skills/tsar
-- Manifest: https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/manifest.yaml
+AIGENT-SEC upstream:
+- Repository: https://github.com/mohamedelghazali/AIGENT-SEC
+- Primary skill: skills/aigent-sec/SKILL.md
+- Security audit skill: skills/security-audit/SKILL.md
+- Manifest: manifest.yaml
 
-This bootstrap is a reusable instruction snippet. It does not change model training or provider-level system instructions.
+The repository slug migration is the final GitHub settings cutover. Until it is completed, GitHub serves the existing repository under the legacy slug `mohamedelghazali/TSAR`.

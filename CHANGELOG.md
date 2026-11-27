@@ -1,17 +1,24 @@
 # Changelog
 
-All notable changes to TSAR are documented here.
+All notable changes to AIGENT-SEC are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
 ### Added
+- Integrated Cloudflare's complete `security-audit` Agent Skill package at upstream commit `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8`, preserving its MIT license, companion references, report schema, validators, and validator tests.
+- Added the AIGENT-SEC primary Agent Skill, adoption guidance, and a backward-compatible `aigent-sec` CLI entry point.
+
+### Changed
+- Rebranded the public project identity and installation guidance from TSAR to AIGENT-SEC. Historical schema identifiers, CLI commands, package identifiers, and workflow check names remain compatible pending separately verified migrations.
+
+### Added
 - Agent bundle generator (`scripts/build_agent_bundle.py`), `llms-full.txt` bundle output, and `pyproject.toml` packaging support (PR #109).
-- Conformance runner (`tools/tsar-conformance/runner.py`) with passing behavioral conformance tests `AC-01` through `AC-04` (PR #110).
+- Conformance runner (`tools/aigent-sec-conformance/runner.py`) with passing behavioral conformance tests `AC-01` through `AC-04` (PR #110).
 
 ### Fixed
-- Hardened `tools/tsar-conformance/verify_adoption.py` with explicit anti-loophole enforcement (rejecting README-only, landing-page-only, and directory-listing-only runs), stale/cached content freshness checks, honest `OptionalCheck(available=False, executed=False)` reporting in web-only runtimes, and real subprocess execution of `runner.py` and `consultation_verifier.py` in local checkouts.
+- Hardened `tools/aigent-sec-conformance/verify_adoption.py` with explicit anti-loophole enforcement (rejecting README-only, landing-page-only, and directory-listing-only runs), stale/cached content freshness checks, honest `OptionalCheck(available=False, executed=False)` reporting in web-only runtimes, and real subprocess execution of `runner.py` and `consultation_verifier.py` in local checkouts.
 - Expanded `tests/test_experiment_regressions.py` to 18 tests including full 10-model adversarial validation fixtures.
 - Added explicit anti-loophole and freshness rules to the `README.md` AI agent adoption protocol.
 
@@ -79,14 +86,14 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - `rules/infrastructure/` (hypervisor, container orchestration, virtualization).
 - `rules/development/` (secure SDLC, code review, pair programming, dependency review).
 - `rules/emerging/` (advanced AI agents, quantum migration, IoMT, autonomous systems).
-- `.github/actions/tsar-verify/action.yml` — composite GitHub Action.
+- `.github/actions/aigent-sec-verify/action.yml` — composite GitHub Action.
 - `scripts/check-no-empty-files.py` — empty file detection.
 - `tests/test_no_empty_files.py` — pytest for empty files.
-- `tools/tsar-cli/tsar.py` — `report`, `compliance`, `drift` commands.
-- `tools/tsar-orchestrator/` — unified pipeline runner.
-- `tools/tsar-report/` — HTML/JSON report generator.
-- `tools/tsar-lsp/` — language server for editors.
-- `tools/tsar-web/` — read-only dashboard.
+- `tools/aigent-sec-cli/tsar.py` — `report`, `compliance`, `drift` commands.
+- `tools/aigent-sec-orchestrator/` — unified pipeline runner.
+- `tools/aigent-sec-report/` — HTML/JSON report generator.
+- `tools/aigent-sec-lsp/` — language server for editors.
+- `tools/aigent-sec-web/` — read-only dashboard.
 - Compliance mappings: SOC 2, ISO 27001:2022, PCI DSS 4.0, HIPAA, GDPR.
 
 ### Changed
@@ -98,7 +105,7 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Fixed
 - Empty files in `rules/owasp-llm/`, `rules/agentic-ai/`, `rules/data/`, and
-  `.github/actions/tsar-verify/` now contain complete content.
+  `.github/actions/aigent-sec-verify/` now contain complete content.
 - `manifest.yaml` now references every rule file in the repository.
 
 ## [1.0.0] — 2026-10-31
@@ -169,11 +176,11 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - `skills/crypto-inventory` — CBOM generator.
 
 #### Tools
-- `tools/tsar-cli` — scan, inventory, lint, version, drift, threat-model, report, compliance, init.
-- `tools/tsar-orchestrator` — pipeline runner with JSON/Markdown output.
-- `tools/tsar-report` — HTML/JSON report generator.
-- `tools/tsar-lsp` — language server for editors.
-- `tools/tsar-web` — read-only dashboard.
+- `tools/aigent-sec-cli` — scan, inventory, lint, version, drift, threat-model, report, compliance, init.
+- `tools/aigent-sec-orchestrator` — pipeline runner with JSON/Markdown output.
+- `tools/aigent-sec-report` — HTML/JSON report generator.
+- `tools/aigent-sec-lsp` — language server for editors.
+- `tools/aigent-sec-web` — read-only dashboard.
 
 #### Examples
 - Secure examples in Python, Node.js, Go, Rust, Java, Kotlin, Swift, React Native, Flutter.

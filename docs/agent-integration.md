@@ -1,6 +1,6 @@
 # Agent Integration Guide
 
-TSAR uses one security-governance instruction source for every supported model and agent:
+AIGENT-SEC uses one security-governance instruction source for every supported model and agent:
 
 - Canonical instructions: [prompts/universal.md](../prompts/universal.md)
 - Compatibility profiles: [integrations/agent-profiles.json](../integrations/agent-profiles.json)
@@ -11,7 +11,7 @@ TSAR uses one security-governance instruction source for every supported model a
 1. Read the matching profile by agent key in integrations/agent-profiles.json.
 2. Load the exact contents of prompts/universal.md through the product's supported system, project, repository, or agent-instructions mechanism.
 3. Do not substitute a legacy prompts/<agent>.md pointer for the canonical file; those paths exist only to preserve old links.
-4. Pin TSAR to an immutable commit and follow the mandatory upstream preflight in the universal instructions.
+4. Pin AIGENT-SEC to an immutable commit and follow the mandatory upstream preflight in the universal instructions.
 5. Keep the actual integration assurance level honest. Loading instructions alone is E0/E1, not technical enforcement.
 
 ## Platform-specific compatibility
@@ -28,11 +28,11 @@ Do not create a second security policy for a provider. If a platform needs a nat
 
 ## Mandatory enforcement contract
 
-For lifecycle enforcement, fail-closed behavior, tool boundaries, and assurance levels, follow [Mandatory Agent Adoption and Enforcement Contract](mandatory-agent-enforcement.md). Prompt compliance is not guaranteed. Use TSAR scanners, policy gates, CI, host-side controls, and human review for stronger assurance.
+For lifecycle enforcement, fail-closed behavior, tool boundaries, and assurance levels, follow [Mandatory Agent Adoption and Enforcement Contract](mandatory-agent-enforcement.md). Prompt compliance is not guaranteed. Use AIGENT-SEC scanners, policy gates, CI, host-side controls, and human review for stronger assurance.
 
 ## Enforcement limitations
 
 - Instruction loading is not provider authentication or runtime proof.
 - A native adapter proves only the exact host path and events covered by its tests.
-- Shared CI validates TSAR's own artifacts and deterministic checks; it must not claim that all 15 external providers were invoked.
+- Shared CI validates AIGENT-SEC's own artifacts and deterministic checks; it must not claim that all 15 external providers were invoked.
 - Run live conformance only with an authenticated, supported environment and record unavailable tests as NOT_RUN or BLOCKED, never PASS.

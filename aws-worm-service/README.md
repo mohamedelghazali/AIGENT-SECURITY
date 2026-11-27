@@ -5,7 +5,7 @@ and Terraform for a deployment that has not been provisioned by this repository.
 
 ## Architecture
 
-- API Gateway HTTP API exposes the two endpoints used by `tools/tsar-cli/lifecycle_anchor.py`.
+- API Gateway HTTP API exposes the two endpoints used by `tools/aigent-sec-cli/lifecycle_anchor.py`.
 - Lambda validates the bearer token from AWS Secrets Manager, request shape, repository allowlist, run identity, audit snapshot bytes/digest, idempotency key, and expected previous receipt digest.
 - DynamoDB stores run state, append records, and idempotency records. A single `TransactWriteItems` operation commits the anchor, idempotency record, and sequence/state transition atomically.
 - S3 Object Lock stores the complete Base64-carried audit snapshot, referenced evidence files, request, and signed receipt in a versioned bucket with explicit COMPLIANCE retention. The service checks the supplied bytes against `record_sha256` and recomputes the stable run ID before archiving. The service checks the retention mode and expiry returned by S3 before committing the DynamoDB index.

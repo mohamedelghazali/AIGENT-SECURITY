@@ -49,10 +49,10 @@ chmod +x .git/hooks/pre-commit
 
 Copy the appropriate integration from `integrations/` into your repository:
 
-- GitHub Actions: `integrations/github-actions/tsar.yml`
-- GitLab CI: `integrations/gitlab-ci/tsar.yml`
-- Bitbucket Pipelines: `integrations/bitbucket/tsar.yml`
-- Azure DevOps: `integrations/azure-devops/tsar.yml`
+- GitHub Actions: `integrations/github-actions/aigent-sec.yml`
+- GitLab CI: `integrations/gitlab-ci/aigent-sec.yml`
+- Bitbucket Pipelines: `integrations/bitbucket/aigent-sec.yml`
+- Azure DevOps: `integrations/azure-devops/aigent-sec.yml`
 
 ## 5. Verify
 

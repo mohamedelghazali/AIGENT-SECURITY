@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tsar-governance"
 version = "1.2.0"
-description = "TSAR AI Agent Governance Framework and unified security CLI"
+description = "AIGENT-SEC AI-Agent Security Engineering & Governance Framework and unified security CLI"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -14,11 +14,13 @@ dependencies = [
 ]
 
 [project.scripts]
+aigent-sec = "tsar:main"
+aigent-sec-claude-hook = "claude_code_hook:main"
 tsar = "tsar:main"
 tsar-claude-hook = "claude_code_hook:main"
 
 [tool.setuptools]
-package-dir = {"" = "tools/tsar-cli"}
+package-dir = {"" = "tools/aigent-sec-cli"}
 py-modules = [
     "tsar",
     "sarif",
