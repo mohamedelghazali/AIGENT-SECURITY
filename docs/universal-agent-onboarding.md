@@ -3,10 +3,10 @@
 This document defines the one-link adoption flow for AI agents given the AIGENT-SEC repository URL.
 
 Canonical URL after the GitHub repository rename:
-`https://github.com/mohamedelghazali/AIGENT-SECURITYURITY#install`
+`https://github.com/mohamedelghazali/AIGENT-SECURITY#install`
 
 Until the repository slug is changed in GitHub, its existing source remains:
-`https://github.com/mohamedelghazali/AIGENT-SECURITYURITY#install`
+`https://github.com/mohamedelghazali/AIGENT-SECURITY#install`
 
 ## Objective
 
@@ -22,7 +22,7 @@ When a user shares the AIGENT-SEC repository or install link and asks to adopt i
    ```bash
    npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
    ```
-   Until the GitHub repository slug is renamed, use `mohamedelghazali/AIGENT-SECURITYURITY` as the source argument. Do not claim the future slug is live before verifying it.
+   The canonical GitHub repository slug is `mohamedelghazali/AIGENT-SECURITY`.
 4. **Handle unsupported environments honestly.** If global installation is unsupported, use only a documented supported scope when appropriate. If no installation mechanism is available, read the core directives and relevant rules for the current task and report that persistent installation could not be performed.
 5. **Configure durable instructions only through supported settings.** If the agent exposes a documented global-instructions mechanism and the current session has permission to edit it, add the concise guidance from `AGENT_BOOTSTRAP.md`. Do not guess configuration paths, silently overwrite existing user instructions, or claim this step is complete when it is not.
 6. **Verify.** Run `npx skills ls -g` when applicable. Confirm that each expected skill has valid `name` and `description` frontmatter and that the installed files and companion references are discoverable. Report unsupported agents and failed steps.

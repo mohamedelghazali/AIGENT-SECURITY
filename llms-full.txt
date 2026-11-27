@@ -15,7 +15,7 @@ active_files: 175 total = 4 core system directives + 171 domain security rule fi
 
 ## AGENTS.md - 7 Mandatory Steps
 1. Read Universal Agent Onboarding (ONBOARDING.md / AGENT_BOOTSTRAP.md) and Agent Skills before acting.
-2. Install skills persistently where supported (`npx skills add mohamedelghazali/AIGENT-SECURITYURITY -g --all`).
+2. Install skills persistently where supported (`npx skills add mohamedelghazali/AIGENT-SECURITY -g --all`).
 3. Run upstream verification (`python tools/aigent-sec-cli/verify_upstream.py` with `--domain` arguments) before security-sensitive engineering work; stop and report if preflight fails.
 4. In chat-only or restricted environments, fetch `manifest.yaml` and policy files from one immutable upstream commit and state verification limitations explicitly.
 5. Enforce persistent adoption: do not assume a repo-local instruction file creates global persistence; never claim installation, persistent configuration, verification, or compliance unless performed and observed.

@@ -1,10 +1,10 @@
 version: "1.2.0"
 last_updated: "2026-11-18"
 schema: "tsar/v1"
-repository: "https://github.com/mohamedelghazali/AIGENT-SECURITYURITY"
+repository: "https://github.com/mohamedelghazali/AIGENT-SECURITY"
 
 lifecycle:
-  check_url: "https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITYURITY/main/manifest.yaml"
+  check_url: "https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/manifest.yaml"
   fetch_before_task: true
   reload_on_version_mismatch: true
   cache_ttl_hours: 6

@@ -13,9 +13,9 @@ SPEC.loader.exec_module(verifier)
 def valid_manifest():
     return {
         "version": "1.2.3",
-        "repository": "https://github.com/mohamedelghazali/AIGENT-SECURITYURITY",
+        "repository": "https://github.com/mohamedelghazali/AIGENT-SECURITY",
         "lifecycle": {
-            "check_url": "https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITYURITY/main/manifest.yaml",
+            "check_url": "https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/manifest.yaml",
             "fetch_before_task": True,
             "fail_closed": True,
         },

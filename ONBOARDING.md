@@ -10,9 +10,9 @@ This is the entry point for AI agents receiving the AIGENT-SEC repository link.
 6. For explicit codebase security audits or pen-test requests, load `skills/security-audit/SKILL.md` and follow its selected operating mode.
 
 Canonical entry URL after the GitHub repository rename:
-https://github.com/mohamedelghazali/AIGENT-SECURITYURITY#install
+https://github.com/mohamedelghazali/AIGENT-SECURITY#install
 
 Until that settings change is completed, the repository remains reachable under its existing URL:
-https://github.com/mohamedelghazali/AIGENT-SECURITYURITY
+https://github.com/mohamedelghazali/AIGENT-SECURITY
 
 A repository URL is not executable. Persistent adoption depends on repository access, runtime tools, permissions, and a supported persistence mechanism.
