@@ -119,7 +119,7 @@ class TestUniversalAdoption(unittest.TestCase):
                 "claude", REPO_ROOT, project_root=self.project_a, home_dir=self.home
             )
             self.assertTrue((custom_claude / "CLAUDE.md").is_file())
-            self.assertTrue((custom_claude / "skills" / "tsar" / "SKILL.md").is_file())
+            self.assertTrue((custom_claude / "skills" / "aigent-sec" / "SKILL.md").is_file())
             self.assertFalse((self.home / ".claude" / "CLAUDE.md").exists())
         finally:
             if old_env is None:

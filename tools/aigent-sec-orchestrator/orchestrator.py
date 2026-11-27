@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""TSAR Orchestrator: run all checks in a single pipeline and emit a unified report."""
+"""AIGENT-SEC Orchestrator: run all checks in a single pipeline and emit a unified report."""
 import argparse
 import concurrent.futures
 import datetime
@@ -69,7 +69,7 @@ def summarize(steps: list[StepResult]) -> dict:
 
 def render_markdown(result: PipelineResult) -> str:
     lines = []
-    lines.append(f"# TSAR Orchestrator Report")
+    lines.append(f"# AIGENT-SEC Orchestrator Report")
     lines.append("")
     lines.append(f"Started: {result.started_at}")
     lines.append(f"Finished: {result.finished_at}")

@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CLI = ROOT / "tools" / "tsar-cli" / "tsar.py"
+CLI = ROOT / "tools" / "aigent-sec-cli" / "tsar.py"
 
 def test_sarif_output(tmp_path):
     (tmp_path / "bad.py").write_text("eval(user_input)\n")

@@ -54,7 +54,7 @@ def start_lifecycle(
     """Run pinned upstream preflight and persist an auditable, non-overwriting run record."""
     root = Path(repo_root).resolve()
     manifest_path = root / "manifest.yaml"
-    verifier = root / "tools" / "tsar-cli" / "verify_upstream.py"
+    verifier = root / "tools" / "aigent-sec-cli" / "verify_upstream.py"
     if not manifest_path.is_file() or not verifier.is_file():
         raise LifecycleStartError("TSAR manifest or upstream verifier is missing")
     try:

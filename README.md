@@ -81,6 +81,24 @@ npx skills add mohamedelghazali/TSAR -g --all
 
 The CLI installs valid skills to supported agent locations it detects. Global installation does not force every agent to load a skill on every turn, modify model training, or provide deterministic enforcement. Consult [`INSTALL.md`](INSTALL.md), [`COMPATIBILITY.md`](COMPATIBILITY.md), and [`VERIFY_INSTALLATION.md`](VERIFY_INSTALLATION.md) for scope, compatibility, and verification.
 
+## Direct canonical URLs (for URL-allowlisted runtimes that only fetch explicit URLs):
+
+The GitHub repository slug is currently `mohamedelghazali/TSAR`. These direct URLs remain valid until the repository settings cutover to `AIGENT-SEC` is completed:
+
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/llms-full.txt
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/VERSION
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/manifest.yaml
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/AGENTS.md
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/CORE_DIRECTIVE.md
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/DO_NOT_GENERATE.md
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/ENFORCEMENT_LEVELS.md
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/LIFECYCLE.md
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/docs/universal-agent-onboarding.md
+- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/docs/release-qualification.md
+- https://api.github.com/repos/mohamedelghazali/TSAR/contents/llms-full.txt
+
+After GitHub changes the repository slug, use the corresponding `mohamedelghazali/AIGENT-SEC` paths. Do not use the future slug as a live source before verifying the redirect and canonical repository URL.
+
 ## Current-session adoption
 
 For chat-only or restricted environments, provide this prompt to the agent:
