@@ -1,5 +1,5 @@
 #!/bin/bash
-# TSAR — Full verification script.
+# AIGENT-SEC — Full verification script.
 # Runs every security and consistency check before a release or merge to main.
 
 set -uo pipefail
@@ -106,7 +106,7 @@ fi
 
 step "13. LSP build (if node installed)"
 if command -v node >/dev/null 2>&1; then
-  rm -f tools/tsar-lsp/out/server.js
+  rm -f tools/aigent-sec-lsp/out/server.js
   if (cd tools/tsar-lsp && npm install --silent && npm run build --silent >/dev/null 2>&1) && [ -f tools/tsar-lsp/out/server.js ]; then
     echo -e "${GREEN}PASS${NC}: lsp_build"
   else
