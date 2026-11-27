@@ -75,7 +75,7 @@ npx skills update -g
 
 The Vercel Skills CLI installs valid skills to supported agent locations it detects. Global installation does not force every agent to load a skill on every turn, modify model training, or provide deterministic enforcement. Consult [`INSTALL.md`](INSTALL.md), [`COMPATIBILITY.md`](COMPATIBILITY.md), and [`VERIFY_INSTALLATION.md`](VERIFY_INSTALLATION.md) for scope, compatibility, and verification.
 
-## Direct canonical URLs
+## Direct canonical URLs (for URL-allowlisted runtimes that only fetch explicit URLs):
 
 - https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/llms-full.txt
 - https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/VERSION
