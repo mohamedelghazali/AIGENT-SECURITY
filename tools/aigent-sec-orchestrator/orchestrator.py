@@ -56,7 +56,7 @@ def step_cbom(target: Path) -> StepResult:
     return _run("cbom", [sys.executable, str(SKILLS / "crypto-inventory" / "inventory.py"), str(target)], ROOT)
 
 def step_compliance(framework: str) -> StepResult:
-    return _run("compliance", [sys.executable, str(TOOLS / "tsar-cli" / "tsar.py"), "compliance", framework], ROOT)
+    return _run("compliance", [sys.executable, str(TOOLS / "aigent-sec-cli" / "tsar.py"), "compliance", framework], ROOT)
 
 def summarize(steps: list[StepResult]) -> dict:
     return {

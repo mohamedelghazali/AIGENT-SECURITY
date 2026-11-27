@@ -33,7 +33,7 @@ def cmd_scan(args) -> int:
             (path, line, kind, "HIGH", "Potential secret or credential detected.")
             for path, line, kind in secret_mod.scan(target)
         )
-        sys.path.insert(0, str(TOOLS / "tsar-cli"))
+        sys.path.insert(0, str(TOOLS / "aigent-sec-cli"))
         import sarif as sarif_mod
         out = Path(args.output or "tsar.sarif")
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -59,7 +59,7 @@ def cmd_threat_model(args) -> int:
     return run_py(SKILLS / "threat-modeler" / "model.py", args.path)
 
 def cmd_report(args) -> int:
-    report = TOOLS / "tsar-report" / "generate.py"
+    report = TOOLS / "aigent-sec-report" / "generate.py"
     argv = [str(report), args.path, "--format", args.format, "--output", args.output]
     return subprocess.call([sys.executable, *argv])
 
@@ -86,7 +86,7 @@ def cmd_compliance(args) -> int:
 def cmd_lifecycle_plan(args) -> int:
     """Create a deterministic lifecycle plan; this does not approve or execute work."""
     import yaml
-    sys.path.insert(0, str(TOOLS / "tsar-cli"))
+    sys.path.insert(0, str(TOOLS / "aigent-sec-cli"))
     from lifecycle_engine import classify_task
 
     try:
@@ -109,7 +109,7 @@ def cmd_lifecycle_plan(args) -> int:
 
 def cmd_lifecycle_start(args) -> int:
     """Start a lifecycle run only after evidence-backed upstream preflight."""
-    sys.path.insert(0, str(TOOLS / "tsar-cli"))
+    sys.path.insert(0, str(TOOLS / "aigent-sec-cli"))
     from lifecycle_orchestrator import LifecycleStartError, start_lifecycle
 
     try:
@@ -129,7 +129,7 @@ def cmd_lifecycle_start(args) -> int:
 
 def cmd_lifecycle_evidence(args) -> int:
     """Attach hashed evidence to one pending lifecycle gate."""
-    sys.path.insert(0, str(TOOLS / "tsar-cli"))
+    sys.path.insert(0, str(TOOLS / "aigent-sec-cli"))
     from lifecycle_evidence import LifecycleEvidenceError, attest_gate
     try:
         record = attest_gate(
@@ -146,7 +146,7 @@ def cmd_lifecycle_evidence(args) -> int:
 
 def cmd_lifecycle_verify(args) -> int:
     """Verify recorded lifecycle evidence against current file bytes."""
-    sys.path.insert(0, str(TOOLS / "tsar-cli"))
+    sys.path.insert(0, str(TOOLS / "aigent-sec-cli"))
     from lifecycle_evidence import LifecycleEvidenceError, verify_audit
     try:
         result = verify_audit(Path(args.audit_file), repo_root=ROOT, trusted_reviewers_file=Path(args.trusted_reviewers))
@@ -159,7 +159,7 @@ def cmd_lifecycle_verify(args) -> int:
 
 def cmd_lifecycle_anchor(args) -> int:
     """Append a verified lifecycle snapshot to the external WORM anchor service."""
-    sys.path.insert(0, str(TOOLS / "tsar-cli"))
+    sys.path.insert(0, str(TOOLS / "aigent-sec-cli"))
     from lifecycle_anchor import LifecycleAnchorError, anchor_audit
     try:
         result = anchor_audit(
@@ -178,7 +178,7 @@ def cmd_lifecycle_anchor(args) -> int:
 
 def cmd_lifecycle_anchor_verify(args) -> int:
     """Verify the latest external WORM anchor against the current lifecycle audit."""
-    sys.path.insert(0, str(TOOLS / "tsar-cli"))
+    sys.path.insert(0, str(TOOLS / "aigent-sec-cli"))
     from lifecycle_anchor import LifecycleAnchorError, verify_external_anchor
     try:
         result = verify_external_anchor(
@@ -327,7 +327,7 @@ def cmd_init(args) -> int:
     version = str(manifest.get("version", "unknown"))
     stage_dir = None
     backup_dir = target / f".tsar.backup.{time.time_ns()}"
-    managed_entries = {"skills", "scripts", "rules", "system", "tsar-report",
+    managed_entries = {"skills", "scripts", "rules", "system", "aigent-sec-report",
                        "manifest.yaml", "config.json", "pre-commit"}
 
     try:
@@ -356,8 +356,8 @@ def cmd_init(args) -> int:
                 symlinks=True,
             )
         shutil.copytree(
-            TOOLS / "tsar-report",
-            stage_dir / "tsar-report",
+            TOOLS / "aigent-sec-report",
+            stage_dir / "aigent-sec-report",
             ignore=ignore_generated,
             symlinks=True,
         )
@@ -492,7 +492,7 @@ def main() -> int:
     r = sub.add_parser("report")
     r.add_argument("path", nargs="?", default=".")
     r.add_argument("--format", choices=["html", "json"], default="html")
-    r.add_argument("--output", default="tsar-report.html")
+    r.add_argument("--output", default="aigent-sec-report.html")
     r.set_defaults(func=cmd_report)
 
     c = sub.add_parser("compliance")

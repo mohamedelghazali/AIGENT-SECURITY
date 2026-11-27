@@ -7,7 +7,7 @@ TSAR ships four ready-made pipeline templates. All run the same three checks:
 3. **Crypto inventory** — reports CBOM, flags weak algorithms.
 
 ## GitHub Actions
-Copy `integrations/github-actions/aigent-sec.yml` to `.github/workflows/tsar.yml`.
+Copy `integrations/github-actions/aigent-sec.yml` to `.github/workflows/aigent-sec.yml`.
 
 The workflow runs on every push and pull request. It fails on secret or HIGH findings.
 
