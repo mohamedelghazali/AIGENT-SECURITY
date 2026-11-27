@@ -4,13 +4,13 @@ Use these checks after installation. Record actual output; do not infer success 
 
 ## 1. Discover skills published by AIGENT-SEC
 
-After the repository slug cutover:
+Run:
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SEC --list
+npx skills add mohamedelghazali/AIGENT-SECURITY --list
 ```
 
-Before the slug cutover, substitute the current source slug `mohamedelghazali/TSAR`.
+The canonical source slug is `mohamedelghazali/AIGENT-SECURITY`.
 
 Expected skill names:
 
@@ -26,10 +26,10 @@ Each `SKILL.md` must begin with YAML frontmatter containing both `name` and `des
 ## 2. Install globally
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SEC -g --all
+npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
 ```
 
-Review the CLI summary for installed agents, unsupported targets, and the actual installation scope. Use the current legacy repository slug until the GitHub rename is complete.
+Review the CLI summary for installed agents, unsupported targets, and the actual installation scope. Use the canonical repository slug `mohamedelghazali/AIGENT-SECURITY`.
 
 ## 3. Verify installed skills
 

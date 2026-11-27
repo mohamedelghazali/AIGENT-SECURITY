@@ -4,13 +4,13 @@ This document separates the historical v1.1.1 release qualification from verific
 
 ## Historical v1.1.1 Release
 
-- Repository: `mohamedelghazali/TSAR`
+- Repository: `mohamedelghazali/AIGENT-SECURITY`
 - Version: `1.1.1`
 - Tag: `v1.1.1`
 - Qualified commit: `61dce3e6d46dd25dfc0ad05617329d7ba89d43a5`
 - Qualified tree: `a4ba503222ceed395bdb81f48b43ebb313bbeffd`
 - Snapshot reviewed: 2026-10-31
-- GitHub Release: [TSAR v1.1.1 — Stable Release](https://github.com/mohamedelghazali/TSAR/releases/tag/v1.1.1)
+- GitHub Release: [TSAR v1.1.1 — Stable Release](https://github.com/mohamedelghazali/AIGENT-SECURITY/releases/tag/v1.1.1)
 - Published at: 2026-10-31 21:22:51 UTC
 
 The v1.1.1 qualification below applies only to that historical source snapshot. It must not be interpreted as qualification of later commits now present on `main`.
@@ -36,7 +36,7 @@ The historical inventory and CI evidence are retained as release records, not as
 
 The post-merge workflows for the current main commit completed successfully:
 
-- The current commit's release-gates workflow completed successfully: [run 42410222144](https://github.com/mohamedelghazali/TSAR/actions/runs/42410222144).
+- The current commit's release-gates workflow completed successfully: [run 42410222144](https://github.com/mohamedelghazali/AIGENT-SECURITY/actions/runs/42410222144).
 - The full verification job reported **326 pytest tests passed** and `ALL CHECKS PASSED`.
 - The post-merge check-run set contains **8/8 successful checks**.
 - Terraform static validation, infrastructure validation, Kubernetes schema validation, TSAR validation, self-test, Claude Code Windows Hook Compatibility, and orchestrator checks completed successfully.
