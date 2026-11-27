@@ -15,9 +15,9 @@ For software engineering, architecture, code generation, code review, testing, i
 7. Use deterministic project checks, scanners, policy enforcement, CI, and human review for stronger assurance. A prompt or skill alone is not enforcement.
 
 AIGENT-SEC upstream:
-- Repository: https://github.com/mohamedelghazali/AIGENT-SECURITY
-- Governance skill: https://github.com/mohamedelghazali/AIGENT-SECURITY/tree/main/skills/aigent-sec
-- Security audit skill: https://github.com/mohamedelghazali/AIGENT-SECURITY/tree/main/skills/security-audit
-- Manifest: https://github.com/mohamedelghazali/AIGENT-SECURITY/blob/main/manifest.yaml
+- Repository: https://github.com/mohamedelghazali/AIGENT-SEC
+- Governance skill: https://github.com/mohamedelghazali/AIGENT-SEC/tree/main/skills/aigent-sec
+- Security audit skill: https://github.com/mohamedelghazali/AIGENT-SEC/tree/main/skills/security-audit
+- Manifest: https://github.com/mohamedelghazali/AIGENT-SEC/blob/main/manifest.yaml
 
-This bootstrap is an instruction snippet, not an automatically installed global configuration. Add it only through the supported global-instructions mechanism of the agent you use. The canonical GitHub repository slug is `mohamedelghazali/AIGENT-SECURITY`.
+This bootstrap is an instruction snippet, not an automatically installed global configuration. Add it only through the supported global-instructions mechanism of the agent you use. Verify that the AIGENT-SEC repository slug cutover has completed before relying on the new URL.

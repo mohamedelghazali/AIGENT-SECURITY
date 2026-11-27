@@ -6,13 +6,13 @@ AIGENT-SEC supports multiple integration paths. They are related but not interch
 
 The Vercel Skills CLI supports repository sources, global scope, and installation to all detected compatible agents.
 
-Use:
+After the GitHub repository slug has been renamed to `AIGENT-SEC`, use:
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
+npx skills add mohamedelghazali/AIGENT-SEC -g --all
 ```
 
-The canonical GitHub source is `mohamedelghazali/AIGENT-SECURITY`.
+Until the slug migration is completed, the existing GitHub source remains `mohamedelghazali/TSAR`; use that slug for installation in the interim.
 
 - `-g` / `--global` requests user-level installation.
 - `--all` installs all valid skills to all agents detected by the CLI without interactive selection.

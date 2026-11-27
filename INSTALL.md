@@ -2,15 +2,23 @@
 
 ## Recommended global installation
 
-Install all valid skills from the canonical AIGENT-SECURITY repository globally for detected compatible agents:
+After the GitHub repository slug is renamed to `AIGENT-SEC`, install all valid skills for all detected compatible agents:
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
+npx skills add mohamedelghazali/AIGENT-SEC -g --all
 ```
+
+Until that repository-settings cutover is completed, the existing repository slug is still `mohamedelghazali/TSAR`; use this temporary source:
+
+```bash
+npx skills add mohamedelghazali/TSAR -g --all
+```
+
+This asks the Vercel Skills CLI to install every valid skill discovered in the repository to all agents it detects, using global scope. Actual support varies by agent; the CLI reports unsupported targets.
 
 ## Published skills
 
-AIGENT-SEC provides six Agent Skills packages:
+AIGENT-SEC provides the following Agent Skills packages:
 
 - `aigent-sec` — primary governance skill and navigation entry point.
 - `crypto-inventory` — cryptographic inventory workflow.
@@ -25,14 +33,14 @@ Each skill's `SKILL.md` must contain valid YAML frontmatter with both `name` and
 
 ```bash
 npx skills ls -g
-npx skills check
 ```
 
-Confirm that the expected skills appear for compatible agents and review the CLI output for unsupported targets.
+Inspect the CLI output and confirm that the six expected skill names appear for the agents and scopes that support them.
 
 ## Update
 
 ```bash
+npx skills check
 npx skills update -g
 ```
 
@@ -40,8 +48,6 @@ Updates are explicit; do not assume an installed skill is live-synchronized with
 
 ## No shell or no global-skill support?
 
-Read [`ONBOARDING.md`](ONBOARDING.md) and [Universal Agent Onboarding](docs/universal-agent-onboarding.md). Retrieve the core directives and applicable rules for the current task, and report honestly that persistent installation was unavailable. Do not invent settings paths or silently modify unrelated configuration.
-
-Global installation makes skills discoverable to compatible agents under the installing user account. It does not force a skill to activate on every turn, modify model training, or provide deterministic enforcement. Use the agent's documented global-instructions mechanism for additional standing behavior.
+Read [ONBOARDING.md](ONBOARDING.md) and [Universal Agent Onboarding](docs/universal-agent-onboarding.md). Retrieve the core directives and applicable rules for the current task, and report honestly that persistent installation was unavailable. Do not invent settings paths or silently modify unrelated configuration.
 
 See the [Vercel Skills CLI documentation](https://github.com/vercel-labs/skills/blob/main/docs/commands.md) for current command behavior and supported agents.

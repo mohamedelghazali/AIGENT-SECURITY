@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 OWNER = "mohamedelghazali"
-REPO = "AIGENT-SECURITY"
+REPO = "TSAR"
 API = f"https://api.github.com/repos/{OWNER}/{REPO}"
 RAW = f"https://raw.githubusercontent.com/{OWNER}/{REPO}"
 USER_AGENT = "TSAR-Upstream-Verifier/1.0"

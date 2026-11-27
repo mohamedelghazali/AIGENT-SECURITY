@@ -95,7 +95,7 @@ For chat-only or restricted environments, provide this prompt to the agent:
 
 ```text
 Adopt AIGENT-SEC as the security engineering governance standard for this task:
-https://github.com/mohamedelghazali/AIGENT-SECURITYURITY
+https://github.com/mohamedelghazali/AIGENT-SECURITY
 
 Read the repository's actual AGENTS.md, manifest.yaml, four core directives,
 and the smallest applicable set of domain rules. Apply the documented
