@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-REPORT = ROOT / "tools" / "tsar-report" / "generate.py"
+REPORT = ROOT / "tools" / "aigent-sec-report" / "generate.py"
 
 def test_html_report(tmp_path):
     fake_key = "AKIAIOS" + "FODNN7EXAMPLE"

@@ -8,7 +8,7 @@ from pathlib import Path
 MODULE = (
     Path(__file__).resolve().parents[1]
     / "tools"
-    / "tsar-conformance"
+    / "aigent-sec-conformance"
     / "adoption_response.py"
 )
 SPEC = importlib.util.spec_from_file_location("tsar_adoption_response", MODULE)

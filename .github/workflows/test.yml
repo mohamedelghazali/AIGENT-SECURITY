@@ -44,7 +44,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/tsar-cli-wheel"
-          python -m pip wheel --no-deps --wheel-dir "$RUNNER_TEMP/tsar-cli-wheel" ./tools/tsar-cli
+          python -m pip wheel --no-deps --wheel-dir "$RUNNER_TEMP/tsar-cli-wheel" ./tools/aigent-sec-cli
           python - "$RUNNER_TEMP/tsar-cli-wheel" <<'PY'
           import sys
           import zipfile
@@ -84,6 +84,11 @@ jobs:
       - name: Run test suite
         run: pytest -q
 
+      - name: Run integrated Cloudflare security-audit validator tests
+        run: |
+          node --test skills/security-audit/validate-findings.test.cjs skills/security-audit/validate-coverage-ledger.test.cjs
+
+
       - name: Scan own examples
         run: |
           python skills/secret-scanner/scanner.py examples/secure
@@ -112,7 +117,7 @@ jobs:
       - name: Install test dependencies and TSAR CLI
         run: |
           python -m pip install -r requirements-dev.txt
-          python -m pip install -e .\tools\tsar-cli
+          python -m pip install -e .\tools\aigent-sec-cli
 
       - name: Validate Claude Code hook settings
         shell: pwsh

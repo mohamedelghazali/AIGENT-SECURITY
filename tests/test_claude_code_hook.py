@@ -7,7 +7,7 @@ import sys
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "tsar-cli"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "aigent-sec-cli"))
 from claude_code_hook import ClaudeHookError, _audit_file, handle_event
 
 

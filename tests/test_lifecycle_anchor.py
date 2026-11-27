@@ -11,7 +11,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools" / "tsar-cli"))
+sys.path.insert(0, str(ROOT / "tools" / "aigent-sec-cli"))
 from lifecycle_anchor import (
     LifecycleAnchorError, _canonical, _receipt_digest, _run_id, _verify_receipt,
     _validate_endpoint, _collect_evidence_files,

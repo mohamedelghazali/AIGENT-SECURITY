@@ -49,7 +49,7 @@ scripts/        — automation
 1. Create `prompts/<agent>.md` following existing patterns.
 2. Reference the manifest URL and `CORE_DIRECTIVE.md`.
 3. Add to `docs/agent-compatibility-matrix.md`.
-4. Add to `tools/tsar-cli/tsar.py` in `--agent` choices.
+4. Add to `tools/aigent-sec-cli/tsar.py` in `--agent` choices.
 5. Update `README.md`.
 6. Open a PR.
 
@@ -101,7 +101,7 @@ Every PR must:
 - Pass `python scripts/lint_rules.py`.
 - Pass the orchestrator:
   ```bash
-  python tools/tsar-orchestrator/orchestrator.py . --format json
+  python tools/aigent-sec-orchestrator/orchestrator.py . --format json
   ```
 - Not introduce secrets (checked by secret-scanner).
 - Not introduce HIGH findings (checked by secure-review).

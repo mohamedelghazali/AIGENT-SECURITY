@@ -10,7 +10,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 VERIFY_ADOPTION_PATH = (
-    REPO_ROOT / "tools" / "tsar-conformance" / "verify_adoption.py"
+    REPO_ROOT / "tools" / "aigent-sec-conformance" / "verify_adoption.py"
 )
 
 _SPEC = importlib.util.spec_from_file_location(
@@ -321,7 +321,7 @@ class ExperimentRegressionTests(unittest.TestCase):
             (root / "system").mkdir()
             for rel in verify_adoption.SYSTEM_DIRECTIVES:
                 (root / rel).write_text("# directive\n", encoding="utf-8")
-            conformance_dir = root / "tools" / "tsar-conformance"
+            conformance_dir = root / "tools" / "aigent-sec-conformance"
             conformance_dir.mkdir(parents=True)
             (conformance_dir / "runner.py").write_text("import sys; sys.exit(1)\n", encoding="utf-8")
             (conformance_dir / "consultation_verifier.py").write_text("import sys; sys.exit(1)\n", encoding="utf-8")

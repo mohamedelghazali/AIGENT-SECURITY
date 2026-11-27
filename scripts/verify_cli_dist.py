@@ -10,7 +10,7 @@ import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PROJECT = ROOT / "tools" / "tsar-cli"
+PROJECT = ROOT / "tools" / "aigent-sec-cli"
 
 
 def sha256(path: Path) -> str:

@@ -4,7 +4,7 @@
 
 E6 is a host-integration profile that composes the existing E2-E5 controls on one controlled execution path. It addresses the gap between independently tested building blocks and a host that actually connects them.
 
-The reference implementation is `tools/tsar-cli/reference_host.py`, packaged as `reference_host` in the TSAR CLI distribution.
+The reference implementation is `tools/aigent-sec-cli/reference_host.py`, packaged as `reference_host` in the TSAR CLI distribution.
 
 ## Controlled execution sequence
 
@@ -18,7 +18,7 @@ The reference implementation is `tools/tsar-cli/reference_host.py`, packaged as 
 
 `ReferenceHost` requires:
 
-- A project root containing `manifest.yaml` and `tools/tsar-cli/verify_upstream.py`.
+- A project root containing `manifest.yaml` and `tools/aigent-sec-cli/verify_upstream.py`.
 - A trusted mapping of `ToolSpec` entries to host-owned dispatcher callables. The mapping keys must match exactly.
 - An authenticated `AuthorizationContext`.
 - An action-bound approval verifier and a durable audit sink.

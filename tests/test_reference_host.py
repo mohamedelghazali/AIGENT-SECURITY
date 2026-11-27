@@ -11,7 +11,7 @@ from types import SimpleNamespace
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools" / "tsar-cli"))
+sys.path.insert(0, str(ROOT / "tools" / "aigent-sec-cli"))
 
 from reference_host import (
     CheckCommand,
@@ -45,9 +45,9 @@ MANIFEST = (
 
 def build_host(tmp_path, *, preflight_status="PASS", check_exit_codes=None, tamper_policy=False, run_real_checks=False, scopes=None, requires_approval=False, approval_allowed=True, audit_failure=False):
     root = tmp_path / "project"
-    (root / "tools" / "tsar-cli").mkdir(parents=True)
+    (root / "tools" / "aigent-sec-cli").mkdir(parents=True)
     (root / "manifest.yaml").write_bytes(MANIFEST)
-    (root / "tools" / "tsar-cli" / "verify_upstream.py").write_text("# test stub\n")
+    (root / "tools" / "aigent-sec-cli" / "verify_upstream.py").write_text("# test stub\n")
     payloads = {"manifest.yaml": MANIFEST, **CORE, **DOMAIN}
     hashes = {path: hashlib.sha256(raw).hexdigest() for path, raw in payloads.items()}
     events = []

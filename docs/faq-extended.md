@@ -28,7 +28,7 @@ Yes. Run `tsar init` to vendor all rules locally under `.tsar/`. The prompt file
 ## How do I add an agent?
 1. Create `prompts/<agent>.md` following existing patterns.
 2. Add the agent to `docs/agent-compatibility-matrix.md`.
-3. Add it to `tools/tsar-cli/tsar.py` in the `--agent` choices.
+3. Add it to `tools/aigent-sec-cli/tsar.py` in the `--agent` choices.
 4. Update README.
 
 ## How do I handle false positives?

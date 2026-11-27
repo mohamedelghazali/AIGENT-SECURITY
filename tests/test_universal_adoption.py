@@ -1,4 +1,4 @@
-"""Regression tests for decoupled TSAR host/agent adoption and consultation verification."""
+"""Regression tests for decoupled AIGENT-SEC host/agent adoption and consultation verification."""
 from __future__ import annotations
 
 import importlib.util
@@ -23,8 +23,8 @@ def _load_module(name: str, rel_path: str):
     return module
 
 
-installer = _load_module("universal_installer", "tools/tsar-installer/universal_installer.py")
-verifier = _load_module("consultation_verifier", "tools/tsar-conformance/consultation_verifier.py")
+installer = _load_module("universal_installer", "tools/aigent-sec-installer/universal_installer.py")
+verifier = _load_module("consultation_verifier", "tools/aigent-sec-conformance/consultation_verifier.py")
 
 
 class TestUniversalAdoption(unittest.TestCase):
@@ -63,15 +63,15 @@ class TestUniversalAdoption(unittest.TestCase):
             expected_files = [
                 self.home / ".tsar" / "host-installation.json",
                 self.home / ".codex" / "AGENTS.md",
-                self.home / ".agents" / "skills" / "tsar" / "SKILL.md",
+                self.home / ".agents" / "skills" / "aigent-sec" / "SKILL.md",
                 self.home / ".claude" / "CLAUDE.md",
-                self.home / ".claude" / "skills" / "tsar" / "SKILL.md",
+                self.home / ".claude" / "skills" / "aigent-sec" / "SKILL.md",
                 self.home / ".gemini" / "GEMINI.md",
-                self.home / ".gemini" / "config" / "skills" / "tsar" / "SKILL.md",
+                self.home / ".gemini" / "config" / "skills" / "aigent-sec" / "SKILL.md",
                 self.home / ".codeium" / "windsurf" / "memories" / "global_rules.md",
-                self.project_a / ".devin" / "rules" / "tsar.md",
-                self.project_a / ".windsurf" / "rules" / "tsar.md",
-                self.project_a / ".cursor" / "rules" / "tsar.mdc",
+                self.project_a / ".devin" / "rules" / "aigent-sec.md",
+                self.project_a / ".windsurf" / "rules" / "aigent-sec.md",
+                self.project_a / ".cursor" / "rules" / "aigent-sec.mdc",
                 self.project_a / ".github" / "copilot-instructions.md",
             ]
             for path in expected_files:
@@ -119,7 +119,7 @@ class TestUniversalAdoption(unittest.TestCase):
                 "claude", REPO_ROOT, project_root=self.project_a, home_dir=self.home
             )
             self.assertTrue((custom_claude / "CLAUDE.md").is_file())
-            self.assertTrue((custom_claude / "skills" / "tsar" / "SKILL.md").is_file())
+            self.assertTrue((custom_claude / "skills" / "aigent-sec" / "SKILL.md").is_file())
             self.assertFalse((self.home / ".claude" / "CLAUDE.md").exists())
         finally:
             if old_env is None:
@@ -144,8 +144,8 @@ class TestUniversalAdoption(unittest.TestCase):
         installer.install_all(REPO_ROOT, project_root=self.project_b, home_dir=self.home)
         self.assertTrue((self.home / ".codex" / "AGENTS.md").is_file())
         self.assertTrue((self.home / ".gemini" / "GEMINI.md").is_file())
-        self.assertTrue((self.project_a / ".cursor" / "rules" / "tsar.mdc").is_file())
-        self.assertTrue((self.project_b / ".cursor" / "rules" / "tsar.mdc").is_file())
+        self.assertTrue((self.project_a / ".cursor" / "rules" / "aigent-sec.mdc").is_file())
+        self.assertTrue((self.project_b / ".cursor" / "rules" / "aigent-sec.mdc").is_file())
         self.assertTrue((self.project_a / ".github" / "copilot-instructions.md").is_file())
         self.assertTrue((self.project_b / ".github" / "copilot-instructions.md").is_file())
 

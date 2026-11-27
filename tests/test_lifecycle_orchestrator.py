@@ -9,18 +9,18 @@ import types
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools" / "tsar-cli"))
+sys.path.insert(0, str(ROOT / "tools" / "aigent-sec-cli"))
 import lifecycle_orchestrator as orchestrator
 
 
 def make_root(tmp_path):
     root = tmp_path / "repo"
-    (root / "tools" / "tsar-cli").mkdir(parents=True)
+    (root / "tools" / "aigent-sec-cli").mkdir(parents=True)
     (root / "manifest.yaml").write_text(
         "active_files:\n  core: [system/CORE_DIRECTIVE.md]\n  api: [rules/api/rest.md]\n  development: [rules/development/secure-sdlc.md]\n",
         encoding="utf-8",
     )
-    (root / "tools" / "tsar-cli" / "verify_upstream.py").write_text("# verifier stub\n")
+    (root / "tools" / "aigent-sec-cli" / "verify_upstream.py").write_text("# verifier stub\n")
     return root
 
 

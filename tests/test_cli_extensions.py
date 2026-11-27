@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CLI = ROOT / "tools" / "tsar-cli" / "tsar.py"
+CLI = ROOT / "tools" / "aigent-sec-cli" / "tsar.py"
 
 def run(args):
     return subprocess.run([sys.executable, str(CLI), *args],

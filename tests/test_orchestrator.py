@@ -1,11 +1,11 @@
-"""Tests for the TSAR orchestrator."""
+"""Tests for the AIGENT-SEC orchestrator."""
 import json
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ORCH = ROOT / "tools" / "tsar-orchestrator" / "orchestrator.py"
+ORCH = ROOT / "tools" / "aigent-sec-orchestrator" / "orchestrator.py"
 
 def test_markdown_output(tmp_path):
     (tmp_path / "ok.py").write_text("import os\n")
@@ -17,7 +17,7 @@ def test_markdown_output(tmp_path):
     assert r.returncode == 0, r.stdout + r.stderr
     assert out.exists()
     text = out.read_text()
-    assert "# TSAR Orchestrator Report" in text
+    assert "# AIGENT-SEC Orchestrator Report" in text
     assert "## Summary" in text
     assert "| Step |" in text
 

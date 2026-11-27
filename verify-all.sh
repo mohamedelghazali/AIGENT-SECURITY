@@ -1,5 +1,5 @@
 #!/bin/bash
-# TSAR — Full verification script.
+# AIGENT-SEC — Full verification script.
 # Runs every security and consistency check before a release or merge to main.
 
 set -uo pipefail
@@ -85,17 +85,17 @@ check "crypto_inventory" python3 skills/crypto-inventory/inventory.py examples/s
 
 step "8. Compliance references"
 for fw in soc2 iso27001 pci-dss hipaa gdpr; do
-  check "compliance_$fw" python3 tools/tsar-cli/tsar.py compliance "$fw"
+  check "compliance_$fw" python3 tools/aigent-sec-cli/tsar.py compliance "$fw"
 done
 
 step "9. Full test suite"
 check "pytest" python3 -m pytest tests/ -q
 
 step "10. Orchestrator on repository"
-check "orchestrator" python3 tools/tsar-orchestrator/orchestrator.py examples/secure --format json --output /tmp/tsar-orch.json
+check "orchestrator" python3 tools/aigent-sec-orchestrator/orchestrator.py examples/secure --format json --output /tmp/tsar-orch.json
 
 step "11. Report generation"
-check "report_generation" python3 tools/tsar-report/generate.py examples/secure --format json --output /tmp/tsar-report.json
+check "report_generation" python3 tools/aigent-sec-report/generate.py examples/secure --format json --output /tmp/tsar-report.json
 
 step "12. OPA policies (if opa installed)"
 if command -v opa >/dev/null 2>&1; then
@@ -106,8 +106,8 @@ fi
 
 step "13. LSP build (if node installed)"
 if command -v node >/dev/null 2>&1; then
-  rm -f tools/tsar-lsp/out/server.js
-  if (cd tools/tsar-lsp && npm install --silent && npm run build --silent >/dev/null 2>&1) && [ -f tools/tsar-lsp/out/server.js ]; then
+  rm -f tools/aigent-sec-lsp/out/server.js
+  if (cd tools/aigent-sec-lsp && npm install --silent && npm run build --silent >/dev/null 2>&1) && [ -f tools/aigent-sec-lsp/out/server.js ]; then
     echo -e "${GREEN}PASS${NC}: lsp_build"
   else
     echo -e "${RED}FAIL${NC}: lsp_build"

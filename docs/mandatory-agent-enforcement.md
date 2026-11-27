@@ -113,7 +113,7 @@ A conformance test suite must test the adapter's real invocation path. Unit test
 
 ### Output verification and evidence API
 
-The `tools/tsar-cli/output_verification.py` module provides a fail-closed E4 building block. It hashes actual changed files, binds observed check results to immutable TSAR and manifest provenance, records skipped/missing/failed checks, and refuses acceptance unless every trusted required check is PASS. Its JSON digest detects record modification but is not a signature or tamper-proof attestation. E4 is not claimed for an agent integration until the host invokes this gate for every covered change, obtains checks from real processes, protects required-check configuration and evidence storage, blocks bypasses, and passes host-level conformance tests.
+The `tools/aigent-sec-cli/output_verification.py` module provides a fail-closed E4 building block. It hashes actual changed files, binds observed check results to immutable TSAR and manifest provenance, records skipped/missing/failed checks, and refuses acceptance unless every trusted required check is PASS. Its JSON digest detects record modification but is not a signature or tamper-proof attestation. E4 is not claimed for an agent integration until the host invokes this gate for every covered change, obtains checks from real processes, protects required-check configuration and evidence storage, blocks bypasses, and passes host-level conformance tests.
 
 
 ### E5 output-verification attestation integration
@@ -143,7 +143,7 @@ The current E2 claim applies only to commands launched through `tsar agent-gate`
 
 ### E6 reference host integration
 
-The `tools/tsar-cli/reference_host.py` module composes the controlled E2-E5 path: it initializes an evidence-backed lifecycle run, fetches and hash-checks the exact pinned policy content, injects that content into the host agent callback, routes the exposed tools through `ToolBoundary`, and runs trusted host-configured checks over the host-collected changed-file set. It requires secret scanning, secure code review, and repository tests. Passing output evidence is written but the E5 `output_verification` gate remains `PENDING` until an authorized external reviewer signs it. See [E6 Reference Host](e6-reference-host.md).
+The `tools/aigent-sec-cli/reference_host.py` module composes the controlled E2-E5 path: it initializes an evidence-backed lifecycle run, fetches and hash-checks the exact pinned policy content, injects that content into the host agent callback, routes the exposed tools through `ToolBoundary`, and runs trusted host-configured checks over the host-collected changed-file set. It requires secret scanning, secure code review, and repository tests. Passing output evidence is written but the E5 `output_verification` gate remains `PENDING` until an authorized external reviewer signs it. See [E6 Reference Host](e6-reference-host.md).
 
 E6 may be claimed only for a concrete host runtime whose actual invocation and tool surfaces pass end-to-end bypass/conformance tests. The reference adapter is not a sandbox, cannot prove a model cognitively read or obeyed the injected policy, and does not intercept capabilities the host exposes outside its guarded dispatcher. A Python callback is not an isolation boundary. The reference adapter tests establish the library contract, not compatibility with every external provider.
 

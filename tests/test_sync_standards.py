@@ -71,7 +71,7 @@ def test_fetch_does_not_retry_permanent_not_found(monkeypatch):
 
 def test_fetch_failure_does_not_modify_existing_cache(tmp_path, monkeypatch):
     module = load_sync_module()
-    cache = tmp_path / ".tsar-cache"
+    cache = tmp_path / ".aigent-sec-cache"
     cache.mkdir()
     marker = cache / "old.sha256"
     marker.write_text("previous marker", encoding="ascii")
@@ -93,7 +93,7 @@ def test_fetch_failure_does_not_modify_existing_cache(tmp_path, monkeypatch):
 
 def test_changed_sources_are_reported_after_atomic_cache_update(tmp_path, monkeypatch):
     module = load_sync_module()
-    cache = tmp_path / ".tsar-cache"
+    cache = tmp_path / ".aigent-sec-cache"
     output = tmp_path / "github-output.txt"
     monkeypatch.setattr(module, "CACHE_DIR", cache)
     monkeypatch.setattr(module, "UPSTREAM", {"owasp": "url-1", "nist": "url-2"})
@@ -111,7 +111,7 @@ def test_changed_sources_are_reported_after_atomic_cache_update(tmp_path, monkey
 
 def test_unchanged_sources_report_false_without_replacing_cache(tmp_path, monkeypatch):
     module = load_sync_module()
-    cache = tmp_path / ".tsar-cache"
+    cache = tmp_path / ".aigent-sec-cache"
     cache.mkdir()
     digest = hashlib.sha256(b"same").hexdigest()
     for name in ("owasp", "nist"):
@@ -133,12 +133,12 @@ def test_unchanged_sources_report_false_without_replacing_cache(tmp_path, monkey
 def test_standards_cache_is_not_gitignored():
     gitignore = SCRIPT.parents[1] / ".gitignore"
     lines = [line.strip() for line in gitignore.read_text(encoding="utf-8").splitlines()]
-    assert ".tsar-cache/" not in lines
+    assert ".aigent-sec-cache/" not in lines
 
 
 def test_cache_promotion_failure_restores_previous_cache(tmp_path, monkeypatch):
     module = load_sync_module()
-    cache = tmp_path / ".tsar-cache"
+    cache = tmp_path / ".aigent-sec-cache"
     cache.mkdir()
     marker = cache / "one.sha256"
     marker.write_text("previous digest", encoding="ascii")
@@ -153,7 +153,7 @@ def test_cache_promotion_failure_restores_previous_cache(tmp_path, monkeypatch):
     def fail_promotion(source, destination):
         source_path = Path(source)
         destination_path = Path(destination)
-        if source_path.name.startswith(".tsar-cache.stage.") and destination_path == cache:
+        if source_path.name.startswith(".aigent-sec-cache.stage.") and destination_path == cache:
             raise OSError("simulated cache promotion failure")
         return real_replace(source, destination)
 
@@ -161,5 +161,5 @@ def test_cache_promotion_failure_restores_previous_cache(tmp_path, monkeypatch):
     assert module.main() == 1
     assert marker.read_text(encoding="ascii") == "previous digest"
     assert operator_note.read_text(encoding="utf-8") == "preserve"
-    assert not list(tmp_path.glob(".tsar-cache.stage.*"))
-    assert not list(tmp_path.glob(".tsar-cache.backup.*"))
+    assert not list(tmp_path.glob(".aigent-sec-cache.stage.*"))
+    assert not list(tmp_path.glob(".aigent-sec-cache.backup.*"))
