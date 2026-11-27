@@ -453,7 +453,7 @@ class ExperimentRegressionTests(unittest.TestCase):
             "Direct canonical URLs (for URL-allowlisted runtimes that only fetch explicit URLs):",
             readme,
         )
-        raw_base = "https://raw." + "github" + "user" + "content" + ".com/mohamedelghazali/TSAR/main/"
+        raw_base = "https://raw." + "github" + "user" + "content" + ".com/mohamedelghazali/AIGENT-SECURITY/main/"
         for rel in (
             "llms-full.txt",
             "VERSION",
@@ -467,7 +467,7 @@ class ExperimentRegressionTests(unittest.TestCase):
             "docs/release-qualification.md",
         ):
             self.assertIn(raw_base + rel, readme)
-        api_url = "https://api." + "github" + ".com/repos/mohamedelghazali/TSAR/contents/llms-full.txt"
+        api_url = "https://api." + "github" + ".com/repos/mohamedelghazali/AIGENT-SECURITY/contents/llms-full.txt"
         self.assertIn(api_url, readme)
 
     def test_20_release_qualification_has_no_stale_v120_contradictions(self) -> None:

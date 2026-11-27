@@ -15,9 +15,9 @@ For software engineering, architecture, code generation, code review, testing, i
 7. Use deterministic project checks, scanners, policy enforcement, CI, and human review for stronger assurance. A prompt or skill alone is not enforcement.
 
 AIGENT-SEC upstream:
-- Repository: https://github.com/mohamedelghazali/AIGENT-SEC
+- Repository: https://github.com/mohamedelghazali/AIGENT-SECURITY
 - Primary skill: skills/aigent-sec/SKILL.md
 - Security audit skill: skills/security-audit/SKILL.md
 - Manifest: manifest.yaml
 
-The repository slug migration is the final GitHub settings cutover. Until it is completed, GitHub serves the existing repository under the legacy slug `mohamedelghazali/TSAR`.
+The canonical repository slug is `mohamedelghazali/AIGENT-SECURITY`.

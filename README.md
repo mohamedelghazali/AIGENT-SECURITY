@@ -64,40 +64,30 @@ The complete imported package is self-contained under `skills/security-audit/`, 
 
 ## Installation
 
-The Vercel Skills CLI supports GitHub shorthand, global installation (`-g`), and non-interactive installation of all discovered skills (`--all`). After the repository slug is renamed to `AIGENT-SEC`, use:
+Install all AIGENT-SEC skills globally for detected compatible agents:
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SEC -g --all
+npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
 npx skills ls -g
 npx skills check
 npx skills update -g
 ```
 
-Until the GitHub repository slug cutover is complete, the existing source URL remains `mohamedelghazali/TSAR`; the equivalent temporary command is:
-
-```bash
-npx skills add mohamedelghazali/TSAR -g --all
-```
-
-The CLI installs valid skills to supported agent locations it detects. Global installation does not force every agent to load a skill on every turn, modify model training, or provide deterministic enforcement. Consult [`INSTALL.md`](INSTALL.md), [`COMPATIBILITY.md`](COMPATIBILITY.md), and [`VERIFY_INSTALLATION.md`](VERIFY_INSTALLATION.md) for scope, compatibility, and verification.
+The Vercel Skills CLI installs valid skills to supported agent locations it detects. Global installation does not force every agent to load a skill on every turn, modify model training, or provide deterministic enforcement. Consult [`INSTALL.md`](INSTALL.md), [`COMPATIBILITY.md`](COMPATIBILITY.md), and [`VERIFY_INSTALLATION.md`](VERIFY_INSTALLATION.md) for scope, compatibility, and verification.
 
 ## Direct canonical URLs (for URL-allowlisted runtimes that only fetch explicit URLs):
 
-The GitHub repository slug is currently `mohamedelghazali/TSAR`. These direct URLs remain valid until the repository settings cutover to `AIGENT-SEC` is completed:
-
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/llms-full.txt
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/VERSION
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/manifest.yaml
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/AGENTS.md
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/CORE_DIRECTIVE.md
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/DO_NOT_GENERATE.md
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/ENFORCEMENT_LEVELS.md
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/system/LIFECYCLE.md
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/docs/universal-agent-onboarding.md
-- https://raw.githubusercontent.com/mohamedelghazali/TSAR/main/docs/release-qualification.md
-- https://api.github.com/repos/mohamedelghazali/TSAR/contents/llms-full.txt
-
-After GitHub changes the repository slug, use the corresponding `mohamedelghazali/AIGENT-SEC` paths. Do not use the future slug as a live source before verifying the redirect and canonical repository URL.
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/llms-full.txt
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/VERSION
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/manifest.yaml
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/AGENTS.md
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/system/CORE_DIRECTIVE.md
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/system/DO_NOT_GENERATE.md
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/system/ENFORCEMENT_LEVELS.md
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/system/LIFECYCLE.md
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/docs/universal-agent-onboarding.md
+- https://raw.githubusercontent.com/mohamedelghazali/AIGENT-SECURITY/main/docs/release-qualification.md
+- https://api.github.com/repos/mohamedelghazali/AIGENT-SECURITY/contents/llms-full.txt
 
 ## Current-session adoption
 
@@ -105,7 +95,7 @@ For chat-only or restricted environments, provide this prompt to the agent:
 
 ```text
 Adopt AIGENT-SEC as the security engineering governance standard for this task:
-https://github.com/mohamedelghazali/AIGENT-SEC
+https://github.com/mohamedelghazali/AIGENT-SECURITY
 
 Read the repository's actual AGENTS.md, manifest.yaml, four core directives,
 and the smallest applicable set of domain rules. Apply the documented
