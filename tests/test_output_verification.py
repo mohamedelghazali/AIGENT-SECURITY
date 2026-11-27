@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "tsar-cli"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "aigent-sec-cli"))
 from output_verification import CheckResult, OutputGate, OutputGateError
 
 

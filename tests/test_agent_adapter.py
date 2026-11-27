@@ -3,7 +3,7 @@ import importlib.util
 import json
 from pathlib import Path
 
-MODULE_PATH = Path(__file__).resolve().parents[1] / "tools" / "tsar-cli" / "agent_adapter.py"
+MODULE_PATH = Path(__file__).resolve().parents[1] / "tools" / "aigent-sec-cli" / "agent_adapter.py"
 SPEC = importlib.util.spec_from_file_location("tsar_agent_adapter", MODULE_PATH)
 adapter = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(adapter)

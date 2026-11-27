@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-MODULE_PATH = Path(__file__).resolve().parents[1] / "tools" / "tsar-cli" / "verify_upstream.py"
+MODULE_PATH = Path(__file__).resolve().parents[1] / "tools" / "aigent-sec-cli" / "verify_upstream.py"
 SPEC = importlib.util.spec_from_file_location("tsar_verify_upstream", MODULE_PATH)
 verifier = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(verifier)

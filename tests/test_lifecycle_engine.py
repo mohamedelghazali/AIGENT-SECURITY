@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-MODULE = Path(__file__).resolve().parents[1] / "tools" / "tsar-cli" / "lifecycle_engine.py"
+MODULE = Path(__file__).resolve().parents[1] / "tools" / "aigent-sec-cli" / "lifecycle_engine.py"
 SPEC = importlib.util.spec_from_file_location("tsar_lifecycle_engine", MODULE)
 engine = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = engine
