@@ -7,10 +7,10 @@ This guide covers installing AIGENT-SEC once for compatible coding agents. For t
 After the repository slug has been renamed to `AIGENT-SEC`:
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SEC -g --all
+npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
 ```
 
-Until then, the GitHub source is still `mohamedelghazali/TSAR`; use the existing slug as a temporary source.
+Until then, the GitHub source is still `mohamedelghazali/AIGENT-SECURITYURITY`; use the existing slug as a temporary source.
 
 The flags mean:
 - `-g` / `--global`: install in the user's global skill locations rather than the current project.
@@ -29,7 +29,7 @@ A skill is discoverable only when its `SKILL.md` contains valid YAML frontmatter
 ## List available skills before installation
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SEC --list
+npx skills add mohamedelghazali/AIGENT-SECURITY --list
 ```
 
 ## Verify global installation

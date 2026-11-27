@@ -9,10 +9,10 @@ The Vercel Skills CLI supports repository sources, global scope, and installatio
 After the GitHub repository slug has been renamed to `AIGENT-SEC`, use:
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SEC -g --all
+npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
 ```
 
-Until the slug migration is completed, the existing GitHub source remains `mohamedelghazali/TSAR`; use that slug for installation in the interim.
+Until the slug migration is completed, the existing GitHub source remains `mohamedelghazali/AIGENT-SECURITYURITY`; use that slug for installation in the interim.
 
 - `-g` / `--global` requests user-level installation.
 - `--all` installs all valid skills to all agents detected by the CLI without interactive selection.

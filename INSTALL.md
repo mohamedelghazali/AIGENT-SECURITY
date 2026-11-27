@@ -2,16 +2,34 @@
 
 ## Recommended global installation
 
+Install all valid AIGENT-SECURITY repository skills globally for all detected compatible agents:
+
+```bash
+npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
+```
+
+Verify and update:
+
+```bash
+npx skills ls -g
+npx skills check
+npx skills update -g
+```
+
+The CLI's supported targets and installation scope depend on the installed agents. Global installation makes skills discoverable to compatible agents; it does not force activation on every turn or modify model training.
+
+# Recommended global installation
+
 After the GitHub repository slug is renamed to `AIGENT-SEC`, install all valid skills for all detected compatible agents:
 
 ```bash
-npx skills add mohamedelghazali/AIGENT-SEC -g --all
+npx skills add mohamedelghazali/AIGENT-SECURITY -g --all
 ```
 
-Until that repository-settings cutover is completed, the existing repository slug is still `mohamedelghazali/TSAR`; use this temporary source:
+Until that repository-settings cutover is completed, the existing repository slug is still `mohamedelghazali/AIGENT-SECURITYURITY`; use this temporary source:
 
 ```bash
-npx skills add mohamedelghazali/TSAR -g --all
+npx skills add mohamedelghazali/AIGENT-SECURITYURITY -g --all
 ```
 
 This asks the Vercel Skills CLI to install every valid skill discovered in the repository to all agents it detects, using global scope. Actual support varies by agent; the CLI reports unsupported targets.
